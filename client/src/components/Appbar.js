@@ -1,16 +1,24 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { Nav, Container, Form, FormControl, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 function Appbar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">Techno Hub</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand>Techno Hub</Navbar.Brand>
+        </Link>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
-            <Nav.Link href="#">Cart</Nav.Link>
-            <Nav.Link href="#">Login</Nav.Link>
+            <Link to="/cart">
+              <Navbar.Brand>Cart</Navbar.Brand>
+            </Link>
+            <Link to="/login">
+              <Navbar.Brand>Login</Navbar.Brand>
+            </Link>
           </Nav>
           <Nav>
             <Form className="d-flex">

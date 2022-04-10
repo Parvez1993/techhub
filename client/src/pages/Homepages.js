@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import products from "../products";
-
+import Product from "../components/Product.js";
 function Homepages() {
   return (
     <>
@@ -9,23 +9,8 @@ function Homepages() {
         <Row>
           {products.map((item, k) => {
             return (
-              <Col key={k} className="my-5">
-                {" "}
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={item.image} />
-                  <Card.Body>
-                    <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>
-                      {item.rating} | {item.numReviews} reviews
-                    </Card.Text>
-                  </Card.Body>
-
-                  <Card.Body>
-                    <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-                      ${item.price}
-                    </p>
-                  </Card.Body>
-                </Card>
+              <Col key={k} className="my-5" sm={12} md={6} lg={4} xl={3}>
+                <Product product={item} />
               </Col>
             );
           })}

@@ -16,3 +16,7 @@ h5,
 h6 {
   font-family: "Domine", serif;
 }
+
+a {
+  text-decoration: none !important;
+}
