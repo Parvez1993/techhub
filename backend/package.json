@@ -3,22 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node backend/server",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix frontend",
-    "dev": "",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon backend/server --ignore client",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\"",
+    "data:import": "node seeder",
+    "data:destroy": "node seeder -d"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "validator": "^13.7.0"
   }
 }

@@ -18,13 +18,14 @@ function Homepages() {
     <>
       <Container>
         <Row>
-          {products.map((item, k) => {
-            return (
-              <Col key={k} className="my-5" sm={12} md={6} lg={4} xl={3}>
-                <Product product={item} />
-              </Col>
-            );
-          })}
+          {products &&
+            products.map((item, k) => {
+              return (
+                <Col key={k} className="my-5" sm={12} md={6} lg={4} xl={3}>
+                  <Product product={item} />
+                </Col>
+              );
+            })}
         </Row>
       </Container>
     </>

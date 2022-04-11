@@ -1,13 +1,22 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const morgan = require("morgan");
-const products = require("./data/products.js");
+import products from "./data/products.js";
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import cors from "cors";
+import morgan from "morgan";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config();
+
+// ------------------mongodb--------------------
+
+const DB = process.env.DB;
+
+mongoose.connect(DB, () => {
+  console.log("connected");
+});
 
 app.get("/", (req, res) => {
   res.send("api is running");
