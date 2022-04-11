@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import products from "../products";
+import axios from "axios";
 import Product from "../components/Product.js";
 function Homepages() {
+  const [products, setProducts] = useState("");
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const { data } = await axios.get("/api/products");
+      setProducts(data);
+    };
+
+    getProducts();
+  }, []);
+
   return (
     <>
       <Container>
