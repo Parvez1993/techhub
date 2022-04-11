@@ -5,6 +5,9 @@ import Ratings from "./Ratings";
 
 function Product({ product }) {
   const { _id, image, name, rating, numReviews, price } = product;
+
+  console.log(product);
+
   return (
     <Card style={{ width: "18rem" }}>
       <Link to={`/products/${_id}`}>

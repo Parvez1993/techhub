@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import axios from "axios";
 import Product from "../components/Product.js";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../redux/actions/productActions.js";
 function Homepages() {
-  const [products, setProducts] = useState("");
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+
+  const { loading, error, products } = productList;
+
+  console.log(products);
 
   useEffect(() => {
-    const getProducts = async () => {
-      const { data } = await axios.get("/api/products");
-      setProducts(data);
-    };
+    dispatch(listProducts());
+  }, [dispatch]);
 
-    getProducts();
-  }, []);
+  if (loading) {
+    return <h2>Loading</h2>;
+  }
 
   return (
     <>

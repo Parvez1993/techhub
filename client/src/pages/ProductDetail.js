@@ -5,6 +5,7 @@ import products from "../products";
 import Ratings from "../components/Ratings";
 
 function ProductDetail() {
+  console.log("i am here");
   const { id } = useParams();
   const product = products.find((p) => p._id === id);
   return (
