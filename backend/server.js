@@ -9,10 +9,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config();
+app.use(morgan("dev"));
 
 // ------------------mongodb--------------------
 
 const DB = process.env.DB;
+
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 mongoose.connect(DB, () => {
   console.log("connected");
@@ -30,6 +34,22 @@ app.get("/api/products/:id", (req, res) => {
   const id = req.params.id;
   const product = products.find((i) => i._id === id);
   res.status(200).json(product);
+});
+
+//unhandled error
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
+  console.log(err.name, err.message);
+  process.exit(1);
 });
 
 const port = process.env.PORT || 5000;
