@@ -11,14 +11,16 @@ function Homepages() {
 
   const { loading, error, products } = productList;
 
-  console.log(products);
-
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
 
   if (loading) {
     return <h2>Loading</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
   }
 
   return (

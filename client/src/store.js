@@ -5,7 +5,17 @@ import thunk from "redux-thunk";
 
 const middleware = [thunk];
 
+const cartItemsFromStorage = localStorage.getItem("storeItems")
+  ? JSON.parse(localStorage.getItem("storeItems"))
+  : [];
+
+const initialState = {
+  cart: {
+    cartItems: cartItemsFromStorage,
+  },
+};
 export const store = createStore(
   rootReducer,
+  initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );

@@ -1,13 +1,47 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
-import products from "../products";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  ListGroup,
+  Row,
+} from "react-bootstrap";
 import Ratings from "../components/Ratings";
+import { useDispatch, useSelector } from "react-redux";
+import { detailProducts } from "../redux/actions/productActions";
 
 function ProductDetail() {
-  console.log("i am here");
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
-  const product = products.find((p) => p._id === id);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const productDetail = useSelector((state) => state.productDetail);
+
+  const cart = useSelector((state) => state.cart);
+
+  console.log(cart);
+  const { loading, error, product } = productDetail;
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+  };
+
+  useEffect(() => {
+    dispatch(detailProducts(id));
+  }, [dispatch, id]);
+
+  if (loading) {
+    return <h2>Loading</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
+  }
   return (
     <div className="my-5 py-5">
       {product ? (
@@ -37,23 +71,53 @@ function ProductDetail() {
             </Col>
             <Col lg={3}>
               <h5 className="text-center">Your Cart</h5>{" "}
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <td>Item</td>
-                    <td>Amount</td>
-                    <td>Price</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{product.name}</td>
-                    <td>1</td>
-                    <td>{product.price}</td>
-                  </tr>
-                </tbody>
-              </Table>
-              <Button className="bg-dark">Add to Cart </Button>
+              <Card>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Price:</Col>
+                      <Col>
+                        <strong>${product.price}</strong>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Status:</Col>
+                      <Col>
+                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Qty</Col>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+                </ListGroup>
+              </Card>
+              <Button className="bg-dark" onClick={addToCartHandler}>
+                Add to Cart{" "}
+              </Button>
             </Col>
           </Row>
         </Container>
