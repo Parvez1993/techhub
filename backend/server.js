@@ -7,6 +7,7 @@ import cors from "cors";
 import morgan from "morgan";
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+import products from "./data/products.js";
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.get("/api/products/:id", (req, res) => {
 
 // /middleware
 
-app.use("/api/v1/auth", router);
+app.use("/api/auth", router);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

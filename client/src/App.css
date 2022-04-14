@@ -20,3 +20,12 @@ h6 {
 a {
   text-decoration: none !important;
 }
+
+/* ///////////////////////////login//////////////////// */
+
+.login {
+  height: 90vh !important;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}

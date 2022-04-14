@@ -9,9 +9,14 @@ const cartItemsFromStorage = localStorage.getItem("storeItems")
   ? JSON.parse(localStorage.getItem("storeItems"))
   : [];
 
+const userFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : [];
+
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
+    userInfo: userFromStorage,
   },
 };
 export const store = createStore(
