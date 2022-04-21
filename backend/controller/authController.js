@@ -3,6 +3,8 @@ import BadRequestError from "../errors/bad-request.js";
 import UnAuthenticatedError from "../errors/unauthenticated.js";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import NotFoundError from "../errors/not-found.js";
+import bcrypt from "bcryptjs";
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -21,9 +23,6 @@ const createSendToken = async (user, statusCode, req, res) => {
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
-
-  // Remove password from output
-  user.password = undefined;
 
   res.status(statusCode).json({
     status: "success",
@@ -69,4 +68,28 @@ const login = async (req, res, next) => {
   createSendToken(user, StatusCodes.CREATED, req, res);
 };
 
-export { login, register };
+const getUserProfile = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    throw new NotFoundError("No user Found");
+  } else {
+    res.status(StatusCodes.OK).json({ user });
+  }
+};
+
+const updateUserProfile = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    throw new NotFoundError("No user Found");
+  } else {
+    user.name = req.body.name;
+    if (req.body.password) {
+      let newpass = await bcrypt.hash(req.body.password, 12);
+      user.password = newpass;
+    }
+
+    createSendToken(user, StatusCodes.ACCEPTED, req, res);
+  }
+};
+
+export { login, register, getUserProfile, updateUserProfile };

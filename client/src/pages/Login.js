@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/actions/userActions";
+import { loginUser, registerUser } from "../redux/actions/userActions";
 import { ToastContainer, toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 function Login() {
+  //search locations
+
+  const { search } = useLocation();
+  const redirectURL = new URLSearchParams(search).get("redirect");
+  let redirect = redirectURL ? redirectURL : "/";
+
+  console.log(redirect);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -13,9 +21,15 @@ function Login() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = user;
-  console.log("ami error", error);
 
-  console.log(error);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(`/${redirectURL}`);
+    }
+  }, [navigate, redirectURL, userInfo]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isMember) {
@@ -24,8 +38,16 @@ function Login() {
       } else {
         dispatch(loginUser(email, password));
       }
+    } else {
+      dispatch(registerUser(name, email, password));
+      if (userInfo) {
+        navigate(`/${redirectURL}`);
+      } else {
+        navigate(`/`);
+      }
     }
   };
+
   return (
     <>
       <ToastContainer

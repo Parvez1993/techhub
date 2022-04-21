@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 
 //toastify
 import "react-toastify/dist/ReactToastify.css";
+import Shipping from "./pages/Shipping";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />}></Route>
           <Route path="/cart/:id" element={<CartPage />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/shipping" element={<Shipping />}></Route>
         </Routes>
       </BrowserRouter>
     </>
