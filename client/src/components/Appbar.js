@@ -11,13 +11,16 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux/reducers/UserReducers";
+import { LinkContainer } from "react-router-bootstrap";
 function Appbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin);
 
   const { userInfo } = user;
 
-  console.log(userInfo);
+  console.log("userInfo", userInfo);
+
+  console.log("dary", userInfo);
 
   const logoutHandler = () => {
     dispatch(userLogout());
@@ -39,14 +42,18 @@ function Appbar() {
 
             <div>
               {userInfo ? (
-                <NavDropdown
-                  title={userInfo.user.name}
-                  id="basic-nav-dropdown"
-                  className="fs-5"
-                >
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                  <NavDropdown.Item>Logout</NavDropdown.Item>
-                </NavDropdown>
+                <>
+                  <NavDropdown
+                    title={userInfo.user.name}
+                    id="basic-nav-dropdown"
+                    className="fs-5"
+                  >
+                    <LinkContainer to={`/profile/${userInfo.user._id}`}>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item>Logout</NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
                 <Link to="/login">
                   <Navbar.Brand onClick={logoutHandler}>Login</Navbar.Brand>

@@ -50,18 +50,3 @@ export const userLogout = (state = {}, action) => {
       return state;
   }
 };
-
-// 👍 userprofile
-
-export const userDetail = (state = {}, action) => {
-  switch (action.type) {
-    case USER_DETAIL_BEGIN:
-      return { ...state, loading: true };
-    case USER_DETAIL_SUCCESS:
-      return { ...state, loading: false, error: "", userInfo: action.payload };
-    case USER_DETAIL_FAIL:
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
