@@ -16,10 +16,10 @@ export const getUserDetails = (id, token) => async (dispatch, getState) => {
     });
 
     console.log("chop", data);
-    dispatch({ type: USER_DETAIL_FAIL, payload: data });
+    dispatch({ type: USER_DETAIL_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: USER_DETAIL_SUCCESS,
+      type: USER_DETAIL_FAIL,
       payload: error.response.data.msg,
     });
   }
