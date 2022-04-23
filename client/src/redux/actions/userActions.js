@@ -45,6 +45,12 @@ export const registerUser =
   };
 
 export const logout = () => async (dispatch) => {
-  dispatch({ type: LOGOUT });
   localStorage.removeItem("userInfo");
+  localStorage.removeItem("cartItems");
+  localStorage.removeItem("shippingAddress");
+  localStorage.removeItem("paymentMethod");
+  dispatch({ type: LOGOUT });
+  document.location.href = "/login";
+
+  document.location.href = "/login";
 };

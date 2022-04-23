@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import "react-toastify/dist/ReactToastify.css";
 import Shipping from "./pages/Shipping";
 import Profile from "./pages/Profile";
+import PaymentScreen from "./pages/PaymentScreen";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/shipping" element={<Shipping />}></Route>
           <Route path="/profile/:id" element={<Profile />}></Route>
+          <Route path="/payment" element={<PaymentScreen />}></Route>
         </Routes>
       </BrowserRouter>
     </>

@@ -24,15 +24,13 @@ function Login() {
 
   const navigate = useNavigate();
 
-  console.log("eita ki,", userInfo);
-
-  console.log("something else", userInfo.user._id);
+  console.log(userInfo);
 
   useEffect(() => {
-    if (userInfo.user._id) {
+    if (userInfo) {
       navigate(`/${redirectURL}`);
     }
-  }, []);
+  }, [navigate, redirectURL, userInfo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,11 +42,11 @@ function Login() {
       }
     } else {
       dispatch(registerUser(name, email, password));
-      if (userInfo) {
-        navigate(`/${redirectURL}`);
-      } else {
-        navigate(`/`);
-      }
+      // if (userInfo) {
+      //   navigate(`/${redirectURL}`);
+      // } else {
+      //   navigate(`/`);
+      // }
     }
   };
 

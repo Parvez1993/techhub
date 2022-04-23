@@ -1,35 +1,117 @@
 import React, { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserDetails } from "../redux/actions/userDetailsAction";
+import {
+  getUserDetails,
+  updateUserDetails,
+} from "../redux/actions/userDetailsAction";
 
 function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin);
+  const userDetail = useSelector((state) => state.userDetails);
   const { userInfo } = user;
+
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  console.log("bal", user);
-
   useEffect(() => {
     if (userInfo.user._id === id) {
-      dispatch(getUserDetails(id, userInfo.token));
+      dispatch(getUserDetails(id, user.userInfo.token));
     } else {
       navigate("/login");
     }
-  }, [dispatch, id, navigate, userInfo.user._id]);
+  }, [
+    dispatch,
+    id,
+    navigate,
+    user.userInfo.token,
+    userInfo.token,
+    userInfo.user._id,
+  ]);
+
+  const [name, setName] = useState();
+  const [password, setPassword] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+  // const validPassword = new RegExp(
+  //   "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[d]){1,})(?=(.*[W]){1,})(?!.*s).{8,}$"
+  // );
+
+  useEffect(() => {
+    if (userDetail.userInfo) {
+      const { userInfo } = userDetail;
+
+      setName(userInfo.user.name);
+      setPassword(userInfo.user.password);
+    }
+  }, [userDetail]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (!password.length > 0 && !password.name > 0) {
+      setAlertMsg("Passwords do not match");
+    } else {
+      console.log(id, userInfo.token, name, password);
+      dispatch(updateUserDetails(id, userInfo.token, name, password));
+    }
+  };
+
+  console.log(name, password);
 
   return (
-    <div>
-      <Row>
+    <Container>
+      {alertMsg ? <Alert>{alertMsg}</Alert> : ""}
+      <Row className="my-5">
         <Col md={3}>
-          <Form></Form>
+          <div className="py-3">
+            <h4>Profile</h4>
+          </div>
+          {/* //email */}
+          <div>
+            <div>
+              <h5>Email</h5>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm"
+                disabled
+                value={userInfo.user.email}
+              />
+            </div>
+          </div>
+          {/* ///name */}
+
+          <Form onSubmit={submitHandler}>
+            <Form.Group controlId="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="name"
+                placeholder="Enter name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Form.Control>
+              <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Button type="submit" variant="primary" className="my-3">
+                Update
+              </Button>
+            </Form.Group>
+          </Form>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 

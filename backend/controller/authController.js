@@ -22,8 +22,10 @@ const createSendToken = async (user, statusCode, req, res) => {
   };
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
+  console.log("from create", user);
+
   res.cookie("jwt", token, cookieOptions);
-  user.password = undefined;
+  // user.password = undefined;
   res.status(statusCode).json({
     status: "success",
     token,
@@ -79,16 +81,24 @@ const getUserProfile = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
   const user = await User.findById(req.params.id);
+  console.log(user);
+  console.log(req.body.name, req.body.password);
   if (!user) {
     throw new NotFoundError("No user Found");
   } else {
     user.name = req.body.name;
     if (req.body.password) {
-      let newpass = await bcrypt.hash(req.body.password, 12);
+      // let newpass = await bcrypt.hash(req.body.password, 12);
+      let newpass = req.body.password;
+      console.log("new pass", newpass);
       user.password = newpass;
     }
 
-    createSendToken(user, StatusCodes.ACCEPTED, req, res);
+    const saveUser = await user.save();
+
+    console.log("save me", saveUser);
+
+    createSendToken(saveUser, StatusCodes.ACCEPTED, req, res);
   }
 };
 
