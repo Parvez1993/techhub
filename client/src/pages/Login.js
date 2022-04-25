@@ -30,7 +30,7 @@ function Login() {
     if (userInfo) {
       navigate(`/${redirectURL}`);
     }
-  }, [navigate, redirectURL, userInfo]);
+  }, [redirectURL, userInfo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,11 +42,6 @@ function Login() {
       }
     } else {
       dispatch(registerUser(name, email, password));
-      // if (userInfo) {
-      //   navigate(`/${redirectURL}`);
-      // } else {
-      //   navigate(`/`);
-      // }
     }
   };
 

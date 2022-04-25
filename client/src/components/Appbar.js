@@ -16,10 +16,8 @@ import { logout } from "../redux/actions/userActions";
 
 function Appbar() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userLogin);
+  const user = useSelector((state) => state.userLogin.userInfo);
   const [reload, setReload] = useState(false);
-
-  const { userInfo } = user;
 
   const logoutHandler = () => {
     console.log("ami i worked");
@@ -32,8 +30,6 @@ function Appbar() {
       setReload(false);
     }
   }, [reload, setReload]);
-
-  console.log("hahahha", userInfo);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -50,14 +46,14 @@ function Appbar() {
             </Link>
 
             <div>
-              {userInfo !== null ? (
+              {user !== null ? (
                 <>
                   <NavDropdown
                     title={user.name}
                     id="basic-nav-dropdown"
                     className="fs-5"
                   >
-                    <LinkContainer to={`/profile/${userInfo.user._id}`}>
+                    <LinkContainer to={`/profile/${user._id}`}>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>

@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Shipping from "./pages/Shipping";
 import Profile from "./pages/Profile";
 import PaymentScreen from "./pages/PaymentScreen";
+import PlaceOrder from "./pages/PlaceOrder";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/shipping" element={<Shipping />}></Route>
           <Route path="/profile/:id" element={<Profile />}></Route>
           <Route path="/payment" element={<PaymentScreen />}></Route>
+          <Route path="/placeOrder" element={<PlaceOrder />}></Route>
         </Routes>
       </BrowserRouter>
     </>

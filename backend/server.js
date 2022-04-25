@@ -8,6 +8,8 @@ import morgan from "morgan";
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import products from "./data/products.js";
+import productRouter from "./routes/productRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 const app = express();
 
@@ -31,16 +33,8 @@ app.get("/", (req, res) => {
   res.send("api is running");
 });
 
-app.get("/api/products", (req, res) => {
-  res.status(200).json(products);
-});
-
-app.get("/api/products/:id", (req, res) => {
-  const id = req.params.id;
-  const product = products.find((i) => i._id === id);
-  res.status(200).json(product);
-});
-
+app.use("/api/products", productRouter);
+app.use("/api/order", orderRouter);
 // /middleware
 
 app.use("/api/auth", router);
