@@ -34,4 +34,18 @@ const addOrderItems = async (req, res) => {
   }
 };
 
-export { addOrderItems };
+const getOrderById = async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name",
+    "email"
+  );
+
+  if (order) {
+    res.status(201).json(order);
+  } else {
+    throw new NotFoundError("No order items");
+  }
+};
+
+export { addOrderItems, getOrderById };

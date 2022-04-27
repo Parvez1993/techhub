@@ -18,7 +18,6 @@ export const getUserDetails = (id, token) => async (dispatch, getState) => {
       },
     });
 
-    console.log("chop", data);
     dispatch({ type: USER_DETAIL_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -42,7 +41,7 @@ export const updateUserDetails =
           },
         }
       );
-      console.log("chop", data);
+
       dispatch({ type: UPDATEUSER_DETAIL_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
