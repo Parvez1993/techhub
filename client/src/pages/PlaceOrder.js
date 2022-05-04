@@ -12,13 +12,24 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { createOrder } from "../redux/actions/orderActions";
 
 function PlaceOrder() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
   const placeOrderHandler = () => {
-    console.log("sss");
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shipping,
+        paymentMethod: cart.paymentMethod.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        taxPrice: cart.taxPrice,
+        shippingPrice: cart.shippingPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
 
   //   Calculate prices
@@ -38,6 +49,9 @@ function PlaceOrder() {
   ).toFixed(2);
 
   ///////////////////////////
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
   return (
     <Container>
       <div className="my-5">
