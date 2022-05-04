@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../redux/actions/orderActions";
 
-function PlaceOrder() {
+function OrderScreen() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin.userInfo);
@@ -160,4 +160,4 @@ function PlaceOrder() {
   );
 }
 
-export default PlaceOrder;
+export default OrderScreen;

@@ -10,6 +10,7 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 import products from "./data/products.js";
 import productRouter from "./routes/productRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import auth from "./middleware/auth.js";
 
 const app = express();
 
@@ -33,11 +34,10 @@ app.get("/", (req, res) => {
   res.send("api is running");
 });
 
-app.use("/api/products", productRouter);
-app.use("/api/order", orderRouter);
-// /middleware
-
 app.use("/api/auth", router);
+app.use("/api/products", productRouter);
+app.use("/api/orders", auth, orderRouter);
+// /middleware
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
