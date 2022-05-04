@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Alert,
   Col,
@@ -10,7 +10,7 @@ import {
   Button,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../redux/actions/orderActions";
 
@@ -19,6 +19,13 @@ function PlaceOrder() {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin.userInfo);
   console.log("user", user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/orders/${order._id}`);
+    }
+  });
 
   const placeOrderHandler = () => {
     dispatch(
@@ -56,9 +63,7 @@ function PlaceOrder() {
   ///////////////////////////
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  // const { order, success, error } = orderCreate;
-
-  console.log("orCreate", orderCreate);
+  const { order, success, error } = orderCreate;
 
   return (
     <Container>

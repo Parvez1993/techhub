@@ -11,6 +11,8 @@ function Login() {
   const redirectURL = new URLSearchParams(search).get("redirect");
   let redirect = redirectURL ? redirectURL : "/";
 
+  console.log("redirect", redirect);
+
   console.log(redirect);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

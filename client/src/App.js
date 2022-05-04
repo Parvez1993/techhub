@@ -13,6 +13,7 @@ import Shipping from "./pages/Shipping";
 import Profile from "./pages/Profile";
 import PaymentScreen from "./pages/PaymentScreen";
 import PlaceOrder from "./pages/PlaceOrder";
+import OrderScreen from "./pages/OrderScreen";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile/:id" element={<Profile />}></Route>
           <Route path="/payment" element={<PaymentScreen />}></Route>
           <Route path="/placeOrder" element={<PlaceOrder />}></Route>
+          <Route path="/orders/:id" element={<OrderScreen />}></Route>
         </Routes>
       </BrowserRouter>
     </>

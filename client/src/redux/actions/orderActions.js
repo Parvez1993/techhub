@@ -8,6 +8,9 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_SUCCESS,
+  ORDER_PAY_FAIL,
 } from "../constants/OrderConstants";
 import { logout } from "./userActions";
 
@@ -41,16 +44,21 @@ export const createOrder = (order, token) => async (dispatch, getState) => {
 
 export const getOrderDetails =
   (order_id, token) => async (dispatch, getState) => {
+    const {
+      userLogin: { userInfo },
+    } = getState();
     try {
       dispatch({
         type: ORDER_DETAILS_REQUEST,
       });
 
-      const { data } = await axios.get(`/api/orders`, order_id, {
+      const { data } = await axios.get(`/api/orders/${order_id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${userInfo.token}`,
         },
       });
+
+      console.log("wtf", data);
 
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
@@ -64,6 +72,41 @@ export const getOrderDetails =
     } catch (error) {
       dispatch({
         type: ORDER_DETAILS_FAIL,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+
+export const payOrder =
+  (order_id, paymentResult) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ORDER_PAY_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const { data } = await axios.put(
+        `/api/orders/${order_id}/pay`,
+        paymentResult,
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+
+      console.log("wtf2", data);
+
+      dispatch({
+        type: ORDER_PAY_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ORDER_PAY_FAIL,
         payload: error.response.data.msg,
       });
     }

@@ -39,6 +39,10 @@ app.use("/api/products", productRouter);
 app.use("/api/orders", auth, orderRouter);
 // /middleware
 
+app.get("/api/config/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
