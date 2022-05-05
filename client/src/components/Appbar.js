@@ -19,8 +19,8 @@ function Appbar() {
   const user = useSelector((state) => state.userLogin.userInfo);
   const [reload, setReload] = useState(false);
 
+  console.log(user);
   const logoutHandler = () => {
-    console.log("ami i worked");
     dispatch(logout());
     setReload(true);
   };
@@ -41,43 +41,41 @@ function Appbar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto align-items-center">
-            <Link to="/cart">
-              <Navbar.Brand>Cart</Navbar.Brand>
-            </Link>
+            <LinkContainer to="/cart">
+              <Nav.Link>
+                <i className="fas fa-shopping-cart"></i> Cart
+              </Nav.Link>
+            </LinkContainer>
 
-            <div>
-              {user !== null ? (
-                <>
-                  <NavDropdown
-                    title={user.name}
-                    id="basic-nav-dropdown"
-                    className="fs-5"
-                  >
-                    <LinkContainer to={`/profile/${user._id}`}>
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </>
-              ) : (
-                <Link to="/login">
-                  <Navbar.Brand>login</Navbar.Brand>
-                </Link>
-              )}
-            </div>
-          </Nav>
-          <Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+            {user ? (
+              <NavDropdown title={user.user.name} id="username">
+                <LinkContainer to="/profile">
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  <i className="fas fa-user"></i> Sign In
+                </Nav.Link>
+              </LinkContainer>
+            )}
+            {user && user.user.isAdmin && (
+              <NavDropdown title="Manage" id="adminmenu">
+                <LinkContainer to="/admin/userlist">
+                  <NavDropdown.Item>Users</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/productlist">
+                  <NavDropdown.Item>Products</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/orderlist">
+                  <NavDropdown.Item>Orders</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

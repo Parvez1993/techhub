@@ -81,8 +81,6 @@ const getUserProfile = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
   const user = await User.findById(req.params.id);
-  console.log(user);
-  console.log(req.body.name, req.body.password);
   if (!user) {
     throw new NotFoundError("No user Found");
   } else {
@@ -102,4 +100,15 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-export { login, register, getUserProfile, updateUserProfile };
+/////////////////////////////////////////////////////////admin//////////////////////////////////////////////////////
+
+const getUsers = async (req, res) => {
+  let user = await User.find();
+  if (!user) {
+    throw new NotFoundError("No user Found");
+  } else {
+    res.status(StatusCodes.OK).json(user);
+  }
+};
+
+export { login, register, getUserProfile, updateUserProfile, getUsers };

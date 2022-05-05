@@ -66,4 +66,9 @@ const updateOrderToPaid = async (req, res) => {
     throw new NotFoundError("No order items");
   }
 };
-export { addOrderItems, getOrderbyItems, updateOrderToPaid };
+
+const getUserOrders = async (req, res) => {
+  const order = await Order.find({ user: req.user.userId });
+  res.json(order);
+};
+export { addOrderItems, getOrderbyItems, updateOrderToPaid, getUserOrders };

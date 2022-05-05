@@ -9,7 +9,7 @@ function Login() {
 
   const { search } = useLocation();
   const redirectURL = new URLSearchParams(search).get("redirect");
-  let redirect = redirectURL ? redirectURL : "/";
+  let redirect = redirectURL ? redirectURL : "";
 
   console.log("redirect", redirect);
 
@@ -26,11 +26,13 @@ function Login() {
 
   const navigate = useNavigate();
 
+  console.log(redirectURL);
+
   console.log(userInfo);
 
   useEffect(() => {
     if (userInfo) {
-      navigate(`/${redirectURL}`);
+      navigate(`/${redirect}`);
     }
   }, [redirectURL, userInfo]);
 

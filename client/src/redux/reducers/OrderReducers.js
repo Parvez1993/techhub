@@ -10,6 +10,10 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_RESET,
+  ORDER_SELFLIST_REQUEST,
+  ORDER_SELFLIST_SUCCESS,
+  ORDER_SELFLIST_FAIL,
+  ORDER_SELFLIST_RESET,
 } from "../constants/OrderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -84,6 +88,34 @@ export const orderPayReducer = (state = {}, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const orderSelfReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_SELFLIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_SELFLIST_SUCCESS:
+      return {
+        orders: action.payload,
+        loading: false,
+        success: true,
+      };
+    case ORDER_SELFLIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case ORDER_SELFLIST_RESET:
+      return {
+        orders: [],
       };
 
     default:

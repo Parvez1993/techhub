@@ -11,6 +11,10 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  ORDER_SELFLIST_SUCCESS,
+  ORDER_SELFLIST_FAIL,
+  ORDER_SELFLIST_REQUEST,
+  ORDER_SELFLIST_RESET,
 } from "../constants/OrderConstants";
 import { logout } from "./userActions";
 
@@ -111,3 +115,35 @@ export const payOrder =
       });
     }
   };
+
+export const getMyOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_SELFLIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await axios.get(
+      `/api/orders/myorders`,
+
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: ORDER_SELFLIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_SELFLIST_FAIL,
+      payload: error.response.data.msg,
+    });
+  }
+};

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import OrderList from "../components/OrderList";
 import {
   getUserDetails,
   updateUserDetails,
@@ -58,12 +59,10 @@ function Profile() {
     }
   };
 
-  console.log(name, password);
-
   return (
     <Container>
       {alertMsg ? <Alert>{alertMsg}</Alert> : ""}
-      <Row className="my-5">
+      <Row className="my-5 justify-content-around">
         <Col md={3}>
           <div className="py-3">
             <h4>Profile</h4>
@@ -109,6 +108,9 @@ function Profile() {
               </Button>
             </Form.Group>
           </Form>
+        </Col>
+        <Col md={5}>
+          <OrderList />
         </Col>
       </Row>
     </Container>
