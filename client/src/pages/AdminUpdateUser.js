@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateUserDetailsAdmin } from "../redux/actions/userActions";
 import { getUserDetails } from "../redux/actions/userDetailsAction";
+import { USER_EDIT_RESET } from "../redux/constants/UserConstants";
 
 function AdminUpdateUser() {
   const { id } = useParams();
   const dispatch = useDispatch();
   let userDetail = useSelector((state) => state.userDetails);
-
+  const userUpdated = useSelector((state) => state.userUpdate);
+  const { user, loading: updateLoading } = userUpdated;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
-  console.log(userDetail);
+  console.log(userUpdated);
 
   useEffect(() => {
-    dispatch(getUserDetails(id));
-    let { userInfo } = userDetail;
-    setEmail(userInfo.user.email);
-    setName(userInfo.user.name);
-    setIsAdmin(userInfo.user.isAdmin);
-  }, []);
+    if (updateLoading) {
+      dispatch({ type: USER_EDIT_RESET });
+      navigate("/admin/userlist");
+    } else {
+      dispatch(getUserDetails(id));
+      let { userInfo } = userDetail;
+      setEmail(userInfo.user.email);
+      setName(userInfo.user.name);
+      setIsAdmin(userInfo.user.isAdmin);
+    }
+  }, [dispatch, updateLoading]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(updateUserDetailsAdmin(id, name, email, isAdmin));
   };
   return (
     <Container>

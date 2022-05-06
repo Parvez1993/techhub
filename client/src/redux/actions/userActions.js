@@ -133,8 +133,9 @@ export const deleteUsers = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateUserDetails =
+export const updateUserDetailsAdmin =
   (id, name, email, isAdmin) => async (dispatch, getState) => {
+    console.log(id, name, email, isAdmin);
     try {
       dispatch({ type: USER_EDIT_BEGIN });
       const {
