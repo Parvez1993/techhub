@@ -8,13 +8,15 @@ import {
 } from "../constants/UserDetailConstants";
 import axios from "axios";
 
-export const getUserDetails = (id, token) => async (dispatch, getState) => {
-  console.log("bal", id, token);
+export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
     dispatch({ type: USER_DETAIL_BEGIN });
     const { data } = await axios.get(`/api/auth/profile/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     });
 

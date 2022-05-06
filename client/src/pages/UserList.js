@@ -1,17 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { getUsers } from "../redux/actions/userActions";
+import { useNavigate } from "react-router-dom";
+import { deleteUsers, getUsers } from "../redux/actions/userActions";
 
 function UserList() {
   const userList = useSelector((state) => state.getAllUsers);
   const { loading, error, users } = userList;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.userLogin);
+  const { error: userError, loading: userLoading, userInfo } = user;
+
+  const deletedUser = useSelector((state) => state.userDelete);
+
+  const { succ: successDelete } = deletedUser;
+
+  const [reload, setReload] = useState(false);
+
+  console.log(reload);
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+    if (userInfo.user && userInfo.user.isAdmin) {
+      dispatch(getUsers());
+    } else {
+      navigate("/login");
+    }
+  }, [dispatch, navigate, userInfo.user, successDelete]);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure")) {
+      dispatch(deleteUsers(id));
+      setReload(!reload);
+    }
+  };
+
   return (
     <Container>
       <>
@@ -50,12 +75,16 @@ function UserList() {
                     )}
                   </td>
                   <td>
-                    <LinkContainer to={`/admin/user/${user._id}/edit`}>
+                    <LinkContainer to={`/admin/user/${user._id}/update`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
                     </LinkContainer>
-                    <Button variant="danger" className="btn-sm">
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => handleDelete(user._id)}
+                    >
                       <i className="fas fa-trash"></i>
                     </Button>
                   </td>

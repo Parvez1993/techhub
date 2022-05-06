@@ -15,6 +15,7 @@ import PaymentScreen from "./pages/PaymentScreen";
 import PlaceOrder from "./pages/PlaceOrder";
 import OrderScreen from "./pages/OrderScreen";
 import UserList from "./pages/UserList";
+import AdminUpdateUser from "./pages/AdminUpdateUser";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
           <Route path="/placeOrder" element={<PlaceOrder />}></Route>
           <Route path="/orders/:id" element={<OrderScreen />}></Route>
           <Route path="/admin/userlist" element={<UserList />}></Route>
+          <Route
+            path="/admin/user/:id/update"
+            element={<AdminUpdateUser />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

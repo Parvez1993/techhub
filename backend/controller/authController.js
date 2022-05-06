@@ -111,4 +111,36 @@ const getUsers = async (req, res) => {
   }
 };
 
-export { login, register, getUserProfile, updateUserProfile, getUsers };
+const deleteUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    throw new NotFoundError("No user Found");
+  } else {
+    await user.remove();
+    res.status(StatusCodes.OK).json({ message: "User removed" });
+  }
+};
+
+const updateUserProfileAdmin = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    throw new NotFoundError("No user Found");
+  } else {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+    const saveUser = await user.save();
+    res.status(StatusCodes.ACCEPTED).json(saveUser);
+  }
+};
+
+export {
+  login,
+  register,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  updateUserProfileAdmin,
+};

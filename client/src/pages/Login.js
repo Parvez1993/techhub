@@ -4,6 +4,7 @@ import { loginUser, registerUser } from "../redux/actions/userActions";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+import axios from "axios";
 function Login() {
   //search locations
 
@@ -11,9 +12,6 @@ function Login() {
   const redirectURL = new URLSearchParams(search).get("redirect");
   let redirect = redirectURL ? redirectURL : "";
 
-  console.log("redirect", redirect);
-
-  console.log(redirect);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -25,10 +23,6 @@ function Login() {
   const { error, loading, userInfo } = user;
 
   const navigate = useNavigate();
-
-  console.log(redirectURL);
-
-  console.log(userInfo);
 
   useEffect(() => {
     if (userInfo) {
