@@ -6,6 +6,15 @@ import {
   PRODUCT_DETAIL_BEGIN,
   PRODUCT_DETAIL_SUCCESS,
   PRODUCT_DETAIL_FAIL,
+  PRODUCT_DELETE_BEGIN,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_EDIT_BEGIN,
+  PRODUCT_EDIT_SUCCESS,
+  PRODUCT_EDIT_FAIL,
+  PRODUCT_CREATE_BEGIN,
+  PRODUCT_CREATE_SUCCESS,
+  PRODUCT_CREATE_FAIL,
 } from "../constants/ProductConstants";
 
 export const listProducts = () => async (dispatch) => {
@@ -46,6 +55,90 @@ export const detailProducts = (id) => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+//delete products
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+  try {
+    dispatch({ type: PRODUCT_DELETE_BEGIN });
+
+    const { data } = await axios.delete(`/api/products/${id}/delete`, {
+      headers: {
+        authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({
+      type: PRODUCT_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+//edit products
+
+export const editProductDetails = (product) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_EDIT_BEGIN });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const { data } = await axios.patch(
+      `/api/products/${product.id}/edit`,
+      product,
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+
+    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_EDIT_FAIL,
+      payload: error.response.data.msg,
+    });
+  }
+};
+
+//addProducts
+
+export const createProduct = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_BEGIN });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    console.log(userInfo);
+
+    const { data } = await axios.post(
+      `/api/products/addProducts`,
+      {},
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+
+    dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload: error.response.data.msg,
     });
   }
 };

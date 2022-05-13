@@ -11,8 +11,11 @@ import products from "./data/products.js";
 import productRouter from "./routes/productRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import auth from "./middleware/auth.js";
-
+import imageUploadRouter from "./routes/imageUploadRoute.js";
+import path from "path";
 const app = express();
+
+app.use;
 
 app.use(express.json());
 
@@ -37,12 +40,19 @@ app.get("/", (req, res) => {
 app.use("/api/auth", router);
 app.use("/api/products", productRouter);
 app.use("/api/orders", auth, orderRouter);
+
+//image upload
+
+app.use("/api/upload", imageUploadRouter);
 // /middleware
 
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
 
+//mimic it since dirnmae doesnt work in es module
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
