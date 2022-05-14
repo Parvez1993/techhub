@@ -29,7 +29,6 @@ export const rootReducer = combineReducers({
   productList: ProductListReducer,
   productDetail: ProductDetailReducer,
   productCreate: productCreateReducer,
-  productUpdate: productUpdateReducer,
   productDelete: deleteProductReducer,
   productEdit: productUpdateReducer,
   cart: cartReducer,

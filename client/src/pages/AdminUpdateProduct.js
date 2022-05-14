@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 
 function AdminUpdateProduct() {
+  const navigate = useNavigate();
   const { id } = useParams();
   let tempImg = "";
 
@@ -38,11 +39,9 @@ function AdminUpdateProduct() {
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: PRODUCT_EDIT_RESET });
+      console.log("ami ekhane ashlam and gelam");
       navigate("/admin/productlist");
     } else {
       if (!product.name || product._id !== id) {

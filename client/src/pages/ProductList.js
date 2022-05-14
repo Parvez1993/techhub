@@ -8,7 +8,10 @@ import {
   deleteProduct,
   listProducts,
 } from "../redux/actions/productActions";
-import { PRODUCT_CREATE_RESET } from "../redux/constants/ProductConstants";
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_EDIT_RESET,
+} from "../redux/constants/ProductConstants";
 
 function ProductList() {
   const productList = useSelector((state) => state.productList);
@@ -28,6 +31,8 @@ function ProductList() {
   } = productCreate;
 
   const deletedProduct = useSelector((state) => state.productDelete);
+  const productUpdated = useSelector((state) => state.productEdit);
+  const { success: successUpdate } = productUpdated;
 
   const { succ: successDelete } = deletedProduct;
 
@@ -36,6 +41,8 @@ function ProductList() {
   console.log(reload);
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_EDIT_RESET });
+    dispatch({ type: PRODUCT_CREATE_RESET });
     if (userInfo.user && userInfo.user.isAdmin) {
       dispatch(listProducts());
     } else {
@@ -45,7 +52,14 @@ function ProductList() {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct.product._id}/update`);
     }
-  }, [dispatch, navigate, userInfo.user, successDelete, successCreate]);
+  }, [
+    dispatch,
+    navigate,
+    userInfo.user,
+    successDelete,
+    successCreate,
+    successUpdate,
+  ]);
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure")) {
