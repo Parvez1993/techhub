@@ -71,4 +71,33 @@ const getUserOrders = async (req, res) => {
   const order = await Order.find({ user: req.user.userId });
   res.json(order);
 };
-export { addOrderItems, getOrderbyItems, updateOrderToPaid, getUserOrders };
+
+const getOrders = async (req, res) => {
+  const order = await Order.find({}).populate("user", "id name");
+  res.json(order);
+};
+
+const updateOrderToDelivered = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+};
+
+export {
+  addOrderItems,
+  getOrderbyItems,
+  updateOrderToPaid,
+  getUserOrders,
+  getOrders,
+  updateOrderToDelivered,
+};

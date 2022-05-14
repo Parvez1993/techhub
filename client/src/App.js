@@ -19,6 +19,7 @@ import AdminUpdateUser from "./pages/AdminUpdateUser";
 import ProductList from "./pages/ProductList";
 import CreateProducts from "./pages/CreateProducts";
 import AdminUpdateProduct from "./pages/AdminUpdateProduct";
+import AdminOrderList from "./pages/AdminOrderList";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             path="/admin/product/:id/update"
             element={<AdminUpdateProduct />}
           ></Route>
+          <Route path="/admin/orderlist" element={<AdminOrderList />}></Route>
         </Routes>
       </BrowserRouter>
     </>

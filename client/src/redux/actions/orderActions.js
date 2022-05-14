@@ -15,20 +15,32 @@ import {
   ORDER_SELFLIST_FAIL,
   ORDER_SELFLIST_REQUEST,
   ORDER_SELFLIST_RESET,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_DELIVERY_REQUEST,
+  ORDER_DELIVERY_SUCCESS,
+  ORDER_DELIVERY_FAIL,
 } from "../constants/OrderConstants";
 import { logout } from "./userActions";
 
-export const createOrder = (order, token) => async (dispatch, getState) => {
+export const createOrder = (order) => async (dispatch, getState) => {
+  console.log("i am from create Order");
+  const {
+    userLogin: { userInfo },
+  } = getState();
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
     });
 
+    console.log(order);
     const { data } = await axios.post(`/api/orders`, order, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     });
+
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
@@ -143,6 +155,71 @@ export const getMyOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_SELFLIST_FAIL,
+      payload: error.response.data.msg,
+    });
+  }
+};
+
+export const listOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await axios.get(
+      `/api/orders/getorders`,
+
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_FAIL,
+      payload: error.response.data.msg,
+    });
+  }
+};
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DELIVERY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/deliver`,
+      {},
+
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: ORDER_DELIVERY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVERY_FAIL,
       payload: error.response.data.msg,
     });
   }

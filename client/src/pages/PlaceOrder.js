@@ -13,34 +13,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../redux/constants/OrderConstants";
 
 function PlaceOrder() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.userLogin.userInfo);
-  console.log("user", user);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (success) {
+      dispatch({ type: ORDER_CREATE_RESET });
       navigate(`/orders/${order._id}`);
     }
   });
 
   const placeOrderHandler = () => {
     dispatch(
-      createOrder(
-        {
-          orderItems: cart.cartItems,
-          shippingAddress: cart.shipping,
-          paymentMethod: cart.paymentMethod.paymentMethod,
-          itemsPrice: cart.itemsPrice,
-          taxPrice: cart.taxPrice,
-          shippingPrice: cart.shippingPrice,
-          totalPrice: cart.totalPrice,
-        },
-        user.token
-      )
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shipping,
+        paymentMethod: cart.paymentMethod.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        taxPrice: cart.taxPrice,
+        shippingPrice: cart.shippingPrice,
+        totalPrice: cart.totalPrice,
+      })
     );
   };
 
