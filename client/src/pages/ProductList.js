@@ -55,7 +55,7 @@ function ProductList() {
   }, [
     dispatch,
     navigate,
-    userInfo.user,
+    userInfo,
     successDelete,
     successCreate,
     successUpdate,

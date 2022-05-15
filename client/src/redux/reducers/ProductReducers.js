@@ -2,6 +2,10 @@ import {
   PRODUCT_CREATE_BEGIN,
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_RESET,
+  PRODUCT_CREATE_REVIEW_BEGIN,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_BEGIN,
   PRODUCT_DELETE_FAIL,
@@ -33,7 +37,7 @@ export const ProductListReducer = (state = { product: [] }, action) => {
 };
 
 export const ProductDetailReducer = (
-  state = { product: [{ reviews: [] }] },
+  state = { product: { reviews: [] } },
   action
 ) => {
   switch (action.type) {
@@ -107,6 +111,21 @@ export const productCreateReducer = (
       return { loading: false, error: action.payload };
     case PRODUCT_CREATE_RESET:
       return { product: {} };
+    default:
+      return state;
+  }
+};
+
+export const createproductReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REVIEW_BEGIN:
+      return { ...state, loading: true };
+    case PRODUCT_CREATE_REVIEW_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case PRODUCT_CREATE_REVIEW_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case PRODUCT_CREATE_REVIEW_RESET:
+      return {};
     default:
       return state;
   }

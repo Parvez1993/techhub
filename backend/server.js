@@ -15,8 +15,6 @@ import imageUploadRouter from "./routes/imageUploadRoute.js";
 import path from "path";
 const app = express();
 
-app.use;
-
 app.use(express.json());
 
 app.use(cors());

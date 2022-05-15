@@ -9,6 +9,7 @@ import {
   orderSelfReducer,
 } from "./OrderReducers";
 import {
+  createproductReviewReducer,
   deleteProductReducer,
   productCreateReducer,
   ProductDetailReducer,
@@ -46,4 +47,5 @@ export const rootReducer = combineReducers({
   getAllUsers: getAllUsers,
   userUpdate: userUpdateReducer,
   orderDelivery: deliveryReducer,
+  createReview: createproductReviewReducer,
 });

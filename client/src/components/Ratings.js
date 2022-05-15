@@ -2,7 +2,6 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 
 function Ratings({ ratings, numberOfRatings }) {
-  console.log(ratings, numberOfRatings);
   return (
     <div className="d-flex justify-content-between">
       <div>

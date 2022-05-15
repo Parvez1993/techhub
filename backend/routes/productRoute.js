@@ -4,6 +4,7 @@ import {
   editProductbyId,
   getProducts,
   getProductsbyId,
+  updateReviews,
 } from "../controller/productController.js";
 
 import express from "express";
@@ -16,5 +17,6 @@ productRouter.route("/:id").get(getProductsbyId);
 productRouter.route("/addProducts").post(auth, adminAuth, addProductbyId);
 productRouter.route("/:id/delete").delete(auth, adminAuth, deleteProductbyId);
 productRouter.route("/:id/edit").patch(auth, adminAuth, editProductbyId);
+productRouter.route("/:id/reviews").post(auth, updateReviews);
 
 export default productRouter;

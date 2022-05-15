@@ -1,6 +1,7 @@
 import UnAuthenticatedError from "../errors/unauthenticated.js";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+
 const auth = async (req, res, next) => {
   // const headers = req.headers;
   const authHeader = req.headers.authorization;
@@ -15,6 +16,7 @@ const auth = async (req, res, next) => {
     console.log(payload);
     // attach the user request object
     // req.user = payload
+
     req.user = { userId: payload.id };
 
     next();
