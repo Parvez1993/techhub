@@ -5,9 +5,29 @@ import Product from "../models/Product.js";
 import User from "../models/User.js";
 
 const getProducts = async (req, res) => {
-  const products = await Product.find();
+  let pageSize = 2;
+  const page = Number(req.query.page) || 1;
+  const skip = (page - 1) * pageSize; //10
+
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const totalProducts = await Product.count(keyword);
+  const numOfPages = Math.ceil(totalProducts / pageSize);
+  const products = await Product.find(keyword).skip(skip).limit(pageSize);
   if (products) {
-    res.status(StatusCodes.OK).json({ products });
+    res.status(StatusCodes.OK).json({
+      products,
+      page,
+      totalProducts: products.length,
+      numOfPages: numOfPages,
+    });
   } else {
     res.status(StatusCodes.NOT_FOUND).json({ msg: "no products found" });
   }

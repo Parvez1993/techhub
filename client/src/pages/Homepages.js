@@ -3,16 +3,22 @@ import { Col, Container, Row } from "react-bootstrap";
 import Product from "../components/Product.js";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions.js";
+import { useParams } from "react-router-dom";
+import Paginate from "../components/Paginate.js";
 function Homepages() {
+  const { keyword, pageNo } = useParams();
+
+  let pageNumber = pageNo ? pageNo : 1;
+
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
 
-  const { loading, error, products } = productList;
+  const { loading, error, products, pages, page } = productList;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   if (loading) {
     return <h2>Loading</h2>;
@@ -35,6 +41,11 @@ function Homepages() {
               );
             })}
         </Row>
+        <Paginate
+          pages={pages} //3
+          page={pageNumber} //1
+          keyword={keyword ? keyword : ""} //keyword
+        />
       </Container>
     </>
   );

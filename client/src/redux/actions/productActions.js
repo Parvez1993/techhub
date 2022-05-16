@@ -20,26 +20,30 @@ import {
   PRODUCT_CREATE_REVIEW_BEGIN,
 } from "../constants/ProductConstants";
 
-export const listProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_BEGIN });
+export const listProducts =
+  (keyword = "", page = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_BEGIN });
+      console.log(keyword);
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&page=${page}`
+      );
 
-    const { data } = await axios.get("/api/products");
-
-    dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data.products,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 //get productlistdetails
 export const detailProducts = (id) => async (dispatch) => {

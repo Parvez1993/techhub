@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import {
-  Nav,
-  Container,
-  Form,
-  FormControl,
-  Button,
-  NavDropdown,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Nav, Container, NavDropdown } from "react-bootstrap";
+import { Link, Route, Router, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../redux/actions/userActions";
+import SearchBar from "./SearchBar";
+import { createBrowserHistory } from "history";
 
 function Appbar() {
+  const history = createBrowserHistory({ window });
+
+  console.log(history);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin.userInfo);
   const [reload, setReload] = useState(false);
@@ -37,6 +35,7 @@ function Appbar() {
         <Link to="/">
           <Navbar.Brand>Techno Hub</Navbar.Brand>
         </Link>
+        <SearchBar />
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

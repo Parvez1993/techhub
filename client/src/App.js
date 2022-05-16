@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <Appbar />
         <Routes>
-          <Route path="/" element={<Homepages />}></Route>
+          <Route path="/" exact element={<Homepages />}></Route>
           <Route path="/products/:id" element={<ProductDetail />}></Route>
           <Route path="/cart/:id" element={<CartPage />}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -38,6 +38,7 @@ function App() {
           <Route path="/orders/:id" element={<OrderScreen />}></Route>
           <Route path="/admin/userlist" element={<UserList />}></Route>
           <Route path="/admin/productlist" element={<ProductList />}></Route>
+
           <Route
             path="/admin/createProducts"
             element={<CreateProducts />}
@@ -51,6 +52,18 @@ function App() {
             element={<AdminUpdateProduct />}
           ></Route>
           <Route path="/admin/orderlist" element={<AdminOrderList />}></Route>
+          <Route path="/page/:pageNo" element={<Homepages />} exact></Route>
+          <Route
+            path="/search/:keyword/page/:pageNo"
+            element={<Homepages />}
+            exact
+          ></Route>
+          <Route path="/search/:keyword" element={<Homepages />} exact></Route>
+          <Route
+            path="/admin/productlist/:pageNo"
+            element={<ProductList />}
+            exact
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
