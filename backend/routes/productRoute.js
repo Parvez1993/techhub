@@ -4,6 +4,7 @@ import {
   editProductbyId,
   getProducts,
   getProductsbyId,
+  getTopProducts,
   updateReviews,
 } from "../controller/productController.js";
 
@@ -13,6 +14,7 @@ import auth from "../middleware/auth.js";
 const productRouter = express.Router();
 
 productRouter.route("/").get(getProducts);
+productRouter.route("/topproducts").get(getTopProducts);
 productRouter.route("/:id").get(getProductsbyId);
 productRouter.route("/addProducts").post(auth, adminAuth, addProductbyId);
 productRouter.route("/:id/delete").delete(auth, adminAuth, deleteProductbyId);

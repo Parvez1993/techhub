@@ -128,6 +128,12 @@ const updateReviews = async (req, res) => {
   }
 };
 
+const getTopProducts = async (req, res) => {
+  let products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  res.send(products);
+};
+
 export {
   getProducts,
   getProductsbyId,
@@ -135,4 +141,5 @@ export {
   editProductbyId,
   addProductbyId,
   updateReviews,
+  getTopProducts,
 };
