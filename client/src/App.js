@@ -20,6 +20,7 @@ import ProductList from "./pages/ProductList";
 import CreateProducts from "./pages/CreateProducts";
 import AdminUpdateProduct from "./pages/AdminUpdateProduct";
 import AdminOrderList from "./pages/AdminOrderList";
+import "swiper/css/bundle";
 
 function App() {
   return (

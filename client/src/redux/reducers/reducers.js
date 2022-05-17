@@ -11,6 +11,7 @@ import {
 import {
   createproductReviewReducer,
   deleteProductReducer,
+  getTopProducts,
   productCreateReducer,
   ProductDetailReducer,
   ProductListReducer,
@@ -48,4 +49,5 @@ export const rootReducer = combineReducers({
   userUpdate: userUpdateReducer,
   orderDelivery: deliveryReducer,
   createReview: createproductReviewReducer,
+  topProducts: getTopProducts,
 });

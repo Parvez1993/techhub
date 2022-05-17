@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions.js";
 import { useParams } from "react-router-dom";
 import Paginate from "../components/Paginate.js";
+import TopProducts from "../components/TopProducts.js";
 function Homepages() {
   const { keyword, pageNo } = useParams();
 
@@ -31,6 +32,7 @@ function Homepages() {
   return (
     <>
       <Container>
+        <TopProducts />
         <Row>
           {products &&
             products.map((item, k) => {
