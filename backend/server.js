@@ -7,12 +7,15 @@ import cors from "cors";
 import morgan from "morgan";
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
-import products from "./data/products.js";
 import productRouter from "./routes/productRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import auth from "./middleware/auth.js";
 import imageUploadRouter from "./routes/imageUploadRoute.js";
 import path from "path";
+import {
+  categoryRouter,
+  categoryUploadRouter,
+} from "./routes/categoryRoute.js";
 const app = express();
 
 app.use(express.json());
@@ -46,6 +49,13 @@ app.use("/api/orders", auth, orderRouter);
 app.use("/api/upload", imageUploadRouter);
 // /middleware
 
+//category
+
+app.use("/api/category", auth, categoryRouter);
+
+//image upload
+
+app.use("/api/category/category", categoryUploadRouter);
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
@@ -53,6 +63,10 @@ app.get("/api/config/paypal", (req, res) => {
 //mimic it since dirnmae doesnt work in es module
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use(
+  "/uploads/category",
+  express.static(path.join(__dirname, "/uploads/category"))
+);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 

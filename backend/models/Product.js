@@ -16,6 +16,16 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
+const couponSchema = mongoose.Schema(
+  {
+    coupon_name: { type: String, default: null },
+    discount: { type: Number, default: 0 },
+    expiry: { type: String, default: null },
+  },
+  {
+    timestamps: true,
+  }
+);
 const productSchema = mongoose.Schema(
   {
     user: {
@@ -36,8 +46,8 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
     description: {
       type: String,
@@ -54,6 +64,11 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    sales: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     price: {
       type: Number,
       required: true,
@@ -64,6 +79,7 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    coupon: [couponSchema],
   },
   {
     timestamps: true,
