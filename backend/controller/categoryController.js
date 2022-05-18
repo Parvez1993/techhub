@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import Category from "../models/Category.js";
 
 const createCategory = async (req, res) => {
@@ -8,7 +9,7 @@ const createCategory = async (req, res) => {
   });
 
   if (category) {
-    res.status(StatusCodes.OK).json({ category });
+    res.status(StatusCodes.OK).json(category);
   } else {
     res.status(StatusCodes.NOT_FOUND).json({ msg: "no category created" });
   }
@@ -16,6 +17,7 @@ const createCategory = async (req, res) => {
 
 const editCategory = async (req, res) => {
   const category = await Category.findById(req.params.id);
+  console.log(category);
   if (!category) {
     throw new NotFoundError("No category Found");
   } else {
@@ -23,8 +25,8 @@ const editCategory = async (req, res) => {
     category.description = req.body.description || category.description;
     category.image = req.body.image || category.image;
 
-    const category = await category.save();
-    res.status(StatusCodes.ACCEPTED).json(category);
+    const categorySave = await category.save();
+    res.status(StatusCodes.ACCEPTED).json(categorySave);
   }
 };
 

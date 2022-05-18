@@ -21,6 +21,8 @@ import CreateProducts from "./pages/CreateProducts";
 import AdminUpdateProduct from "./pages/AdminUpdateProduct";
 import AdminOrderList from "./pages/AdminOrderList";
 import "swiper/css/bundle";
+import CategoryEdit from "./pages/CategoryEdit";
+import CategoryList from "./pages/CategoryList";
 
 function App() {
   return (
@@ -39,11 +41,15 @@ function App() {
           <Route path="/orders/:id" element={<OrderScreen />}></Route>
           <Route path="/admin/userlist" element={<UserList />}></Route>
           <Route path="/admin/productlist" element={<ProductList />}></Route>
-
+          <Route path="/admin/categoryList" element={<CategoryList />}></Route>
           <Route
+            path="/admin/category/:id/update"
+            element={<CategoryEdit />}
+          ></Route>
+          {/* <Route
             path="/admin/createProducts"
             element={<CreateProducts />}
-          ></Route>
+          ></Route> */}
           <Route
             path="/admin/user/:id/update"
             element={<AdminUpdateUser />}

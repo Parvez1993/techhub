@@ -12,10 +12,8 @@ import orderRouter from "./routes/orderRoute.js";
 import auth from "./middleware/auth.js";
 import imageUploadRouter from "./routes/imageUploadRoute.js";
 import path from "path";
-import {
-  categoryRouter,
-  categoryUploadRouter,
-} from "./routes/categoryRoute.js";
+import { categoryRouter } from "./routes/categoryRoute.js";
+import { categoryUploadRouter } from "./routes/categoryImageUpload.js";
 const app = express();
 
 app.use(express.json());
@@ -55,7 +53,8 @@ app.use("/api/category", auth, categoryRouter);
 
 //image upload
 
-app.use("/api/category/category", categoryUploadRouter);
+app.use("/api/categoryUpload", categoryUploadRouter);
+
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });

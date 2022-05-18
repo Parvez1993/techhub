@@ -73,6 +73,9 @@ function Appbar() {
                 <LinkContainer to="/admin/orderlist">
                   <NavDropdown.Item>Orders</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/categoryList">
+                  <NavDropdown.Item>Category</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             )}
           </Nav>

@@ -49,7 +49,7 @@ const addProductbyId = async (req, res) => {
     price: 0,
     image: "/images/sample.jpg",
     brand: "Sample brand",
-    category: "Sample category",
+    category: "62857b6507898709ca95af6e",
     countInStock: 0,
     numReviews: 0,
     description: "Sample description",
