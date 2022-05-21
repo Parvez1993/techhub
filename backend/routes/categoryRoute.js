@@ -5,11 +5,13 @@ import multer from "multer";
 import {
   createCategory,
   editCategory,
+  getCategory,
 } from "../controller/categoryController.js";
 
 const categoryRouter = express.Router();
 
 categoryRouter.route("/").post(createCategory);
+categoryRouter.route("/get").get(getCategory);
 categoryRouter.route("/:id/edit").patch(editCategory);
 
 ////image upload

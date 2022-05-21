@@ -8,6 +8,7 @@ import {
   editProductDetails,
 } from "../redux/actions/productActions";
 import axios from "axios";
+import { listCategory } from "../redux/actions/categoryActions";
 
 function AdminUpdateProduct() {
   const navigate = useNavigate();
@@ -16,11 +17,11 @@ function AdminUpdateProduct() {
 
   //trying a logic
 
-  console.log("id", id);
   const dispatch = useDispatch();
   let productDetail = useSelector((state) => state.productDetail);
+  let productCategory = useSelector((state) => state.category);
 
-  console.log(productDetail);
+  const { category: cat, loading: catLoading } = productCategory;
 
   const { loading, error, product } = productDetail;
   const productUpdated = useSelector((state) => state.productEdit);
@@ -41,13 +42,12 @@ function AdminUpdateProduct() {
 
   useEffect(() => {
     if (successUpdate) {
-      console.log("ami ekhane ashlam and gelam");
       navigate("/admin/productlist");
     } else {
       if (!product.name || product._id !== id) {
+        dispatch(listCategory());
         dispatch(detailProducts(id));
       } else {
-        console.log(name, price, image);
         setName(product.name);
         setPrice(product.price);
         setImage(product.image);
@@ -61,12 +61,10 @@ function AdminUpdateProduct() {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    console.log("fileees", file);
     if (image) {
       const formData = new FormData();
       formData.append("image", file);
 
-      console.log(formData);
       setUploading(true);
       try {
         const config = {
@@ -79,7 +77,7 @@ function AdminUpdateProduct() {
         if (data) {
           tempImg = data;
         }
-        console.log(data);
+
         setImage(data);
         setUploading(false);
       } catch (error) {
@@ -90,8 +88,7 @@ function AdminUpdateProduct() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("khara");
-    console.log(tempImg);
+
     dispatch(
       editProductDetails({
         id,

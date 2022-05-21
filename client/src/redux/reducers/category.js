@@ -7,6 +7,9 @@ import {
   CATEGORY_EDIT_FAIL,
   CATEGORY_EDIT_RESET,
   CATEGORY_EDIT_SUCCESS,
+  CATEGORY_LIST_BEGIN,
+  CATEGORY_LIST_FAIL,
+  CATEGORY_LIST_SUCCESS,
 } from "../constants/CategoryConstants";
 
 export const categoryUpdateReducer = (
@@ -51,6 +54,23 @@ export const categoryCreateReducer = (
       return { loading: false, error: action.payload };
     case CATEGORY_CREATE_RESET:
       return { category: {} };
+    default:
+      return state;
+  }
+};
+
+export const categoryReducer = (state = { category: [] }, action) => {
+  switch (action.type) {
+    case CATEGORY_LIST_BEGIN:
+      return { loading: true, category: [] };
+
+    case CATEGORY_LIST_SUCCESS:
+      return {
+        loading: false,
+        category: action.payload,
+      };
+    case CATEGORY_LIST_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

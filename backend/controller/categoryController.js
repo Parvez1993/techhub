@@ -1,6 +1,16 @@
 import { StatusCodes } from "http-status-codes";
 import Category from "../models/Category.js";
 
+const getCategory = async (req, res) => {
+  const category = await Category.find({});
+
+  if (category) {
+    res.status(StatusCodes.OK).json(category);
+  } else {
+    res.status(StatusCodes.NOT_FOUND).json({ msg: "no category found" });
+  }
+};
+
 const createCategory = async (req, res) => {
   const category = await Category.create({
     name: "Sample name",
@@ -30,4 +40,4 @@ const editCategory = async (req, res) => {
   }
 };
 
-export { createCategory, editCategory };
+export { createCategory, editCategory, getCategory };

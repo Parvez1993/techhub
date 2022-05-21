@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import { cartReducer } from "./CartReducers";
-import { categoryCreateReducer, categoryUpdateReducer } from "./category";
+import {
+  categoryCreateReducer,
+  categoryReducer,
+  categoryUpdateReducer,
+} from "./category";
 import {
   deliveryReducer,
   orderCreateReducer,
@@ -51,6 +55,7 @@ export const rootReducer = combineReducers({
   orderDelivery: deliveryReducer,
   createReview: createproductReviewReducer,
   topProducts: getTopProducts,
+  category: categoryReducer,
   categoryCreate: categoryCreateReducer,
   categoryUpdate: categoryUpdateReducer,
 });

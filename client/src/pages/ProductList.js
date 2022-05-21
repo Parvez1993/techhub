@@ -38,8 +38,6 @@ function ProductList() {
 
   const [reload, setReload] = useState(false);
 
-  console.log(reload);
-
   useEffect(() => {
     dispatch({ type: PRODUCT_EDIT_RESET });
     dispatch({ type: PRODUCT_CREATE_RESET });
