@@ -15,11 +15,8 @@ import path from "path";
 import { categoryRouter } from "./routes/categoryRoute.js";
 import { categoryUploadRouter } from "./routes/categoryImageUpload.js";
 const app = express();
-
 app.use(express.json());
-
 app.use(cors());
-
 dotenv.config();
 
 if (process.env.NODE_ENV === "development") {

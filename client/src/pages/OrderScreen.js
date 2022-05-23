@@ -77,7 +77,6 @@ function OrderScreen() {
   //handle delivery
 
   const deliverHandler = () => {
-    console.log(order);
     dispatch(deliverOrder(order));
   };
 

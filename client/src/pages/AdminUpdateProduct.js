@@ -35,7 +35,7 @@ function AdminUpdateProduct() {
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("62857b6507898709ca95af6e");
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
@@ -102,6 +102,8 @@ function AdminUpdateProduct() {
       })
     );
   };
+
+  console.log(category);
   return (
     <>
       {!loading ? (
@@ -155,12 +157,15 @@ function AdminUpdateProduct() {
 
                 <Form.Group controlId="category">
                   <Form.Label>Category</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  ></Form.Control>
+                  <Form.Select aria-label="Default select example">
+                    {cat.map((i, k) => {
+                      return (
+                        <option key={i._id} onClick={() => setCategory(i._id)}>
+                          {i.name}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="description">

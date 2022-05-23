@@ -42,14 +42,6 @@ function PaymentScreen() {
                 checked
                 onChange={(e) => setPaymentMethod(e.target.value)}
               ></Form.Check>
-              <Form.Check
-                type="radio"
-                label="Stripe"
-                id="paypal"
-                name="paymentMethod"
-                value="Stripe"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              ></Form.Check>
             </Form.Group>
 
             <Button type="submit" variant="primary" className="my-3">

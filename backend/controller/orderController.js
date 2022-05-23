@@ -1,6 +1,6 @@
 import NotFoundError from "../errors/not-found.js";
 import Order from "../models/Order.js";
-
+import Product from "../models/Product.js";
 const addOrderItems = async (req, res) => {
   const {
     orderItems,
@@ -77,6 +77,14 @@ const getOrders = async (req, res) => {
   res.json(order);
 };
 
+const updateSales = async (id, qty) => {
+  const product = await Product.findById(id);
+
+  product.sales = product.sales + qty;
+
+  await product.save();
+};
+
 const updateOrderToDelivered = async (req, res) => {
   const order = await Order.findById(req.params.id);
 
@@ -85,6 +93,10 @@ const updateOrderToDelivered = async (req, res) => {
     order.deliveredAt = Date.now();
 
     const updatedOrder = await order.save();
+
+    order.orderItems.map((i) => {
+      updateSales(i.product, i.qty);
+    });
 
     res.json(updatedOrder);
   } else {

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Paginate from "../components/Paginate";
 import {
   createProduct,
   deleteProduct,
@@ -14,8 +15,11 @@ import {
 } from "../redux/constants/ProductConstants";
 
 function ProductList() {
+  const { keyword, pageNo } = useParams();
+
+  let pageNumber = pageNo ? pageNo : 1;
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { loading, products, error, pages } = productList;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +46,8 @@ function ProductList() {
     dispatch({ type: PRODUCT_EDIT_RESET });
     dispatch({ type: PRODUCT_CREATE_RESET });
     if (userInfo.user && userInfo.user.isAdmin) {
-      dispatch(listProducts());
+      console.log("ami ekhane");
+      dispatch(listProducts("", pageNumber));
     } else {
       navigate("/login");
     }
@@ -123,6 +128,11 @@ function ProductList() {
             </tbody>
           </Table>
         )}
+        <Paginate
+          pages={pages} //3
+          page={pageNumber} //1
+          isAdmin={true}
+        />
       </>
     </Container>
   );

@@ -28,7 +28,7 @@ function ProductDetail() {
   const productDetail = useSelector((state) => state.productDetail);
   const { loading, error, product } = productDetail;
   const [render, setRender] = useState(false);
-  console.log(product);
+
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin.userInfo);
   const productReviewCreate = useSelector((state) => state.productCreate);
@@ -64,8 +64,6 @@ function ProductDetail() {
   if (error) {
     return <h2>{error}</h2>;
   }
-
-  console.log("review ratings", product.rating);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -157,7 +155,6 @@ function ProductDetail() {
             </Col>
           </Row>
 
-          {console.log(product.reviews)}
           <Row>
             <Col md={6}>
               <h2>Reviews</h2>
