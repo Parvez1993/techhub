@@ -40,4 +40,13 @@ const editCategory = async (req, res) => {
   }
 };
 
-export { createCategory, editCategory, getCategory };
+const getCategorybyId = async (req, res) => {
+  const category = await Category.findById(req.params.id);
+  if (category) {
+    res.status(StatusCodes.OK).json({ category });
+  } else {
+    res.status(StatusCodes.NOT_FOUND).json({ msg: "no products found" });
+  }
+};
+
+export { createCategory, editCategory, getCategory, getCategorybyId };

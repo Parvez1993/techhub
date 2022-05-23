@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { cartReducer } from "./CartReducers";
 import {
   categoryCreateReducer,
+  categoryDetailReducer,
   categoryReducer,
   categoryUpdateReducer,
 } from "./category";
@@ -58,6 +59,7 @@ export const rootReducer = combineReducers({
   createReview: createproductReviewReducer,
   topProducts: getTopProducts,
   category: categoryReducer,
+  categoryDetail: categoryDetailReducer,
   categoryCreate: categoryCreateReducer,
   categoryUpdate: categoryUpdateReducer,
 });

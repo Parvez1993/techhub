@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editcategory } from "../redux/actions/categoryActions";
+import { detailCategory, editcategory } from "../redux/actions/categoryActions";
 
 function CategoryEdit() {
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ function CategoryEdit() {
 
   console.log("id", id);
   const dispatch = useDispatch();
-  let categoryCreate = useSelector((state) => state.categoryCreate);
+  let categoryCreate = useSelector((state) => state.categoryDetail);
 
   const { loading, error, category } = categoryCreate;
-  const productUpdated = useSelector((state) => state.productEdit);
+  const productUpdated = useSelector((state) => state.categoryUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -31,11 +31,16 @@ function CategoryEdit() {
 
   useEffect(() => {
     if (successUpdate) {
+      console.log("yeesss");
       navigate("/admin/categorylist");
     } else {
-      setName(category.name);
-      setImage(category.image);
-      setDescription(category.description);
+      if (!category.name || category._id !== id) {
+        dispatch(detailCategory(id));
+      } else {
+        setName(category.name);
+        setImage(category.image);
+        setDescription(category.description);
+      }
     }
   }, [dispatch, successUpdate, id, loading]);
 
@@ -63,11 +68,10 @@ function CategoryEdit() {
         if (data) {
           tempImg = data;
         }
-        console.log(data);
+
         setImage(data);
         setUploading(false);
       } catch (error) {
-        console.error(error);
         setUploading(false);
       }
     }
@@ -78,6 +82,7 @@ function CategoryEdit() {
       editcategory({
         id,
         name,
+        description,
         image: image,
       })
     );

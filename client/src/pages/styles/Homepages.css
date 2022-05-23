@@ -20,7 +20,9 @@
 }
 .swiper_box p {
   font-size: 1.5em;
-  color: rgb(239, 19, 19);
+  color: rgb(19, 239, 155);
+  display: inline;
+  font-weight: 700;
 }
 
 .first .second .third {

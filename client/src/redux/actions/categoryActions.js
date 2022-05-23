@@ -3,6 +3,9 @@ import {
   CATEGORY_CREATE_BEGIN,
   CATEGORY_CREATE_FAIL,
   CATEGORY_CREATE_SUCCESS,
+  CATEGORY_DETAIL_BEGIN,
+  CATEGORY_DETAIL_FAIL,
+  CATEGORY_DETAIL_SUCCESS,
   CATEGORY_EDIT_BEGIN,
   CATEGORY_EDIT_FAIL,
   CATEGORY_EDIT_SUCCESS,
@@ -68,8 +71,6 @@ export const addcategory = () => async (dispatch, getState) => {
 
 export const listCategory = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: CATEGORY_CREATE_BEGIN });
-
     const {
       userLogin: { userInfo },
     } = getState();
@@ -88,6 +89,33 @@ export const listCategory = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: CATEGORY_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const detailCategory = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CATEGORY_DETAIL_BEGIN });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const { data } = await axios.get(`/api/category/${id}`, {
+      headers: {
+        authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    dispatch({
+      type: CATEGORY_DETAIL_SUCCESS,
+      payload: data.category,
+    });
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_DETAIL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -103,7 +103,6 @@ function AdminUpdateProduct() {
     );
   };
 
-  console.log(category);
   return (
     <>
       {!loading ? (
