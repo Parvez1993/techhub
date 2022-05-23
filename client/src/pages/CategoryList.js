@@ -32,8 +32,8 @@ function CategoryList() {
   };
 
   useEffect(() => {
-    // dispatch({ type: CATEGORY_EDIT_RESET });
-    // dispatch({ type: CATEGORY_CREATE_RESET });
+    dispatch({ type: CATEGORY_EDIT_RESET });
+    dispatch({ type: CATEGORY_CREATE_RESET });
     if (userInfo.user && userInfo.user.isAdmin) {
       dispatch(listCategory());
     } else {

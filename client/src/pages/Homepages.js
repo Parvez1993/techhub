@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions.js";
 import { useParams } from "react-router-dom";
 import Paginate from "../components/Paginate.js";
+import Categories from "../components/Categories.js";
 import TopProducts from "../components/TopProducts.js";
 import { getLandingProducts } from "../redux/actions/landingActions.js";
-import { useSpring, animated } from "react-spring";
 import "./styles/Homepages.css";
 
 ///////////////////////swiper/////////////////////
@@ -20,6 +20,8 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Navigation } from "swiper";
+import { listCategory } from "../redux/actions/categoryActions.js";
+
 function Homepages() {
   const { keyword, pageNo } = useParams();
 
@@ -34,12 +36,6 @@ function Homepages() {
   const productList = useSelector((state) => state.productList);
 
   const { loading, error, products, pages, page } = productList;
-
-  const styles = useSpring({
-    loop: { reverse: false },
-    from: { x: -3000 },
-    to: { x: 100 },
-  });
 
   const [index, setIndex] = useState(0);
 
@@ -62,55 +58,6 @@ function Homepages() {
 
   return (
     <>
-      {/* {landing.length > 1 && products ? (
-        <Swiper
-          pagination={{
-            type: "fraction",
-          }}
-          navigation={true}
-          modules={[Navigation]}
-          className="mySwiper"
-        >
-          {landing.map((item, key) => {
-            return (
-              <SwiperSlide key={key}>
-                <div className="swiper_box">
-                  <img
-                    src={item.image}
-                    alt="swiper_img"
-                    className="swiper_img"
-                  />
-
-                  <div
-                    className={
-                      key === 0 ? "first" : key === 1 ? "second" : "third"
-                    }
-                  >
-                    {key === 0 ? (
-                      <animated.div
-                        style={{
-                          ...styles,
-                        }}
-                      >
-                        <div>
-                          <h1>{item.name}</h1>
-                          <h4>{item.description}</h4>
-                          <p>{item.subDescription}</p>
-                        </div>
-                      </animated.div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      ) : (
-        ""
-      )} */}
-
       {landing.length > 1 && products ? (
         <Carousel fade activeIndex={index} onSelect={handleSelect}>
           {landing.map((item, key) => {
@@ -139,6 +86,7 @@ function Homepages() {
 
       <Container>
         <TopProducts />
+        <Categories />
         <Row>
           {products &&
             products.map((item, k) => {
