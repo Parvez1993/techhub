@@ -1,0 +1,67 @@
+.swiper_box {
+  width: 100%;
+  background-size: cover;
+  position: relative;
+}
+
+.swiper_img {
+  object-fit: cover;
+  width: 100%;
+  height: 400px;
+}
+
+.swiper_box h1 {
+  font-size: 5em;
+}
+
+.swiper_box h4 {
+  font-size: 2em;
+  color: rgb(231, 255, 48);
+}
+.swiper_box p {
+  font-size: 1.5em;
+  color: rgb(239, 19, 19);
+}
+
+.first .second .third {
+  position: absolute;
+}
+
+.first {
+  position: absolute;
+  color: white;
+  top: 20px;
+  left: 10px;
+  transform: translate(100px, 50%);
+  animation: myfirst 2s ease-in;
+}
+
+/* @keyframes myfirst {
+  0% {
+    transform: translate(-100px, 50%);
+  }
+
+  100% {
+    transform: translate(0, 50%);
+  }
+}
+
+.third {
+  position: absolute;
+  color: white;
+  top: 20px;
+  right: 10px;
+  transform: translate(2000px, 50%);
+  animation: third 2s ease-in;
+  text-align: right;
+}
+
+@keyframes third {
+  0% {
+    transform: translate(2000px, 50%);
+  }
+
+  100% {
+    transform: translate(0, 50%);
+  }
+} */

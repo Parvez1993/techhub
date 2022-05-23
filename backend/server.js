@@ -14,6 +14,7 @@ import imageUploadRouter from "./routes/imageUploadRoute.js";
 import path from "path";
 import { categoryRouter } from "./routes/categoryRoute.js";
 import { categoryUploadRouter } from "./routes/categoryImageUpload.js";
+import landingRouter from "./routes/landingRoute.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -56,6 +57,8 @@ app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
 
+//landing
+app.use("/api/landing", landingRouter);
 //mimic it since dirnmae doesnt work in es module
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

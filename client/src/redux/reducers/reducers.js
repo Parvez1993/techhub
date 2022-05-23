@@ -5,6 +5,7 @@ import {
   categoryReducer,
   categoryUpdateReducer,
 } from "./category";
+import { LandingListReducer } from "./landingReducers";
 import {
   deliveryReducer,
   orderCreateReducer,
@@ -35,6 +36,7 @@ import {
 } from "./UserReducers";
 
 export const rootReducer = combineReducers({
+  landing: LandingListReducer,
   productList: ProductListReducer,
   productDetail: ProductDetailReducer,
   productCreate: productCreateReducer,

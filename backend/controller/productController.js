@@ -5,7 +5,7 @@ import Product from "../models/Product.js";
 import User from "../models/User.js";
 
 const getProducts = async (req, res) => {
-  let pageSize = 2;
+  let pageSize = 4;
   const page = Number(req.query.page) || 1;
   const skip = (page - 1) * pageSize; //10
 

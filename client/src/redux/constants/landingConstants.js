@@ -1,0 +1,3 @@
+export const LANDING_BEGIN = "LANDING_BEGIN";
+export const LANDING_SUCCESS = "LANDING_SUCCESS";
+export const LANDING_FAIL = "LANDING_FAIL";

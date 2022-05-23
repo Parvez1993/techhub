@@ -1,11 +1,25 @@
-import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
 import Product from "../components/Product.js";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions.js";
 import { useParams } from "react-router-dom";
 import Paginate from "../components/Paginate.js";
 import TopProducts from "../components/TopProducts.js";
+import { getLandingProducts } from "../redux/actions/landingActions.js";
+import { useSpring, animated } from "react-spring";
+import "./styles/Homepages.css";
+
+///////////////////////swiper/////////////////////
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// import required modules
+import { Navigation } from "swiper";
 function Homepages() {
   const { keyword, pageNo } = useParams();
 
@@ -13,11 +27,24 @@ function Homepages() {
 
   const dispatch = useDispatch();
 
+  const landingProducts = useSelector((state) => state.landing);
+
+  const { landing } = landingProducts;
+
   const productList = useSelector((state) => state.productList);
 
   const { loading, error, products, pages, page } = productList;
 
+  const styles = useSpring({
+    loop: { reverse: false },
+    from: { x: -3000 },
+    to: { x: 100 },
+  });
+
+  const [index, setIndex] = useState(0);
+
   useEffect(() => {
+    dispatch(getLandingProducts());
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
@@ -29,8 +56,87 @@ function Homepages() {
     return <h2>{error}</h2>;
   }
 
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <>
+      {/* {landing.length > 1 && products ? (
+        <Swiper
+          pagination={{
+            type: "fraction",
+          }}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {landing.map((item, key) => {
+            return (
+              <SwiperSlide key={key}>
+                <div className="swiper_box">
+                  <img
+                    src={item.image}
+                    alt="swiper_img"
+                    className="swiper_img"
+                  />
+
+                  <div
+                    className={
+                      key === 0 ? "first" : key === 1 ? "second" : "third"
+                    }
+                  >
+                    {key === 0 ? (
+                      <animated.div
+                        style={{
+                          ...styles,
+                        }}
+                      >
+                        <div>
+                          <h1>{item.name}</h1>
+                          <h4>{item.description}</h4>
+                          <p>{item.subDescription}</p>
+                        </div>
+                      </animated.div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      ) : (
+        ""
+      )} */}
+
+      {landing.length > 1 && products ? (
+        <Carousel fade activeIndex={index} onSelect={handleSelect}>
+          {landing.map((item, key) => {
+            return (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100 fluid"
+                  style={{ height: "500px", width: "auto", objectFit: "cover" }}
+                  src={item.image}
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <div className="swiper_box">
+                    <h1>{item.name}</h1>
+                    <h4>{item.description}</h4>
+                    <p>{item.subDescription}</p>
+                  </div>
+                </Carousel.Caption>
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
+      ) : (
+        ""
+      )}
+
       <Container>
         <TopProducts />
         <Row>
