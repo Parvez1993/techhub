@@ -81,6 +81,7 @@ const editProductbyId = async (req, res) => {
     product.name = req.body.name || product.name;
     product.price = req.body.price || product.price;
     product.category = req.body.category || product.category;
+    product.countInStock = req.body.countInStock || product.countInStock;
     product.description = req.body.description || product.description;
     product.brand = req.body.brand || product.brand;
     product.image = req.body.image || req.image;
@@ -129,6 +130,18 @@ const updateReviews = async (req, res) => {
   }
 };
 
+const findProductsbyCategory = async (req, res) => {
+  console.log(req.params.id);
+  let products = await Product.find({ category: req.params.id });
+
+  if (products) {
+    res.send(products);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+};
+
 const getTopProducts = async (req, res) => {
   let products = await Product.find({}).sort({ rating: -1 }).limit(3);
 
@@ -143,4 +156,5 @@ export {
   addProductbyId,
   updateReviews,
   getTopProducts,
+  findProductsbyCategory,
 };

@@ -2,6 +2,7 @@ import {
   addProductbyId,
   deleteProductbyId,
   editProductbyId,
+  findProductsbyCategory,
   getProducts,
   getProductsbyId,
   getTopProducts,
@@ -20,5 +21,6 @@ productRouter.route("/addProducts").post(auth, adminAuth, addProductbyId);
 productRouter.route("/:id/delete").delete(auth, adminAuth, deleteProductbyId);
 productRouter.route("/:id/edit").patch(auth, adminAuth, editProductbyId);
 productRouter.route("/:id/reviews").post(auth, updateReviews);
+productRouter.route("/category/:id").get(findProductsbyCategory);
 
 export default productRouter;

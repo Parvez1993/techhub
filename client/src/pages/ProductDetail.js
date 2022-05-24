@@ -58,11 +58,11 @@ function ProductDetail() {
   }, [dispatch, id, successProductReview]);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <h3>Loading</h3>;
   }
 
   if (error) {
-    return <h2>{error}</h2>;
+    return <h3>{error}</h3>;
   }
 
   const submitHandler = (e) => {
@@ -157,7 +157,7 @@ function ProductDetail() {
 
           <Row>
             <Col md={6}>
-              <h2>Reviews</h2>
+              <h3>Reviews</h3>
               {product.reviews.length === 0 && <Alert>No Reviews</Alert>}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
@@ -172,7 +172,7 @@ function ProductDetail() {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
+                  <h3>Write a Customer Review</h3>
                   {successProductReview && (
                     <Alert variant="success">
                       Review submitted successfully
@@ -182,7 +182,7 @@ function ProductDetail() {
                   {errorProductReview && (
                     <Alert variant="danger">{errorProductReview}</Alert>
                   )}
-                  {user.user ? (
+                  {user ? (
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="rating">
                         <Form.Label>Rating</Form.Label>
