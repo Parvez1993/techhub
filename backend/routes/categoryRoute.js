@@ -1,7 +1,7 @@
 import path from "path";
 import express from "express";
 import multer from "multer";
-
+import auth from "../middleware/auth.js";
 import {
   createCategory,
   editCategory,
@@ -11,10 +11,10 @@ import {
 
 const categoryRouter = express.Router();
 
-categoryRouter.route("/").post(createCategory);
+categoryRouter.route("/").post(auth, createCategory);
 categoryRouter.route("/get").get(getCategory);
 categoryRouter.route("/:id").get(getCategorybyId);
-categoryRouter.route("/:id/edit").patch(editCategory);
+categoryRouter.route("/:id/edit").patch(auth, editCategory);
 
 ////image upload
 

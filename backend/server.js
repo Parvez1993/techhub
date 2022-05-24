@@ -47,7 +47,7 @@ app.use("/api/upload", imageUploadRouter);
 
 //category
 
-app.use("/api/category", auth, categoryRouter);
+app.use("/api/category", categoryRouter);
 
 //image upload
 

@@ -3,15 +3,15 @@
 }
 
 .img_box {
-  height: 430px;
-  width: 430px;
+  height: 400px;
+  width: 400px;
   overflow: hidden;
   position: relative;
 }
 
 .cat__img {
-  height: 430px;
   object-fit: cover;
+  height: 430px;
   width: 430px;
   transition: transform 0.4s;
 }

@@ -22,7 +22,7 @@ function Categories() {
           <div className="text_deco">
             <h2 data-text="Category">Category</h2>
           </div>
-          <div className="category_card d-flex justify-content-center">
+          <div className="category_card d-flex justify-content-center flex-wrap gap-2">
             {category.map((i, k) => {
               return (
                 <div className="img_box">

@@ -10,18 +10,6 @@ import TopProducts from "../components/TopProducts.js";
 import { getLandingProducts } from "../redux/actions/landingActions.js";
 import "./styles/Homepages.css";
 
-///////////////////////swiper/////////////////////
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import required modules
-import { Navigation } from "swiper";
-import { listCategory } from "../redux/actions/categoryActions.js";
-
 function Homepages() {
   const { keyword, pageNo } = useParams();
 

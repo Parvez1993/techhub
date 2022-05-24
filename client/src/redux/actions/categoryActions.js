@@ -71,16 +71,8 @@ export const addcategory = () => async (dispatch, getState) => {
 
 export const listCategory = () => async (dispatch, getState) => {
   try {
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
     dispatch({ type: CATEGORY_LIST_BEGIN });
-    const { data } = await axios.get(`http://localhost:4000/api/category/get`, {
-      headers: {
-        authorization: `Bearer ${userInfo.token}`,
-      },
-    });
+    const { data } = await axios.get(`http://localhost:4000/api/category/get`);
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,
