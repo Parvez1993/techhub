@@ -40,6 +40,8 @@ function AdminUpdateProduct() {
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
 
+  console.log(category);
+
   useEffect(() => {
     if (successUpdate) {
       navigate("/admin/productlist");
@@ -88,7 +90,6 @@ function AdminUpdateProduct() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
     dispatch(
       editProductDetails({
         id,
@@ -102,7 +103,7 @@ function AdminUpdateProduct() {
       })
     );
   };
-
+  console.log(category);
   return (
     <>
       {!loading ? (
@@ -154,18 +155,32 @@ function AdminUpdateProduct() {
                   ></Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId="category">
+                {/* <Form.Group controlId="category">
                   <Form.Label>Category</Form.Label>
                   <Form.Select aria-label="Default select example">
                     {cat.map((i, k) => {
                       return (
-                        <option key={i._id} onClick={() => setCategory(i._id)}>
+                        <option key={i._id} onSelect={() => setCategory(i._id)}>
                           {i.name}
                         </option>
                       );
                     })}
                   </Form.Select>
-                </Form.Group>
+                </Form.Group> */}
+
+                {cat.map((i, k) => {
+                  return (
+                    <Form.Check
+                      className="my-5"
+                      type="checkbox"
+                      label={`${i.name}`}
+                      name="single"
+                      id={`disabled-default-checkbox`}
+                      onClick={() => setCategory(i._id)}
+                      checked={i._id === category}
+                    />
+                  );
+                })}
 
                 <Form.Group controlId="description">
                   <Form.Label>Description</Form.Label>

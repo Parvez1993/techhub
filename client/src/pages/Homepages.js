@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import Product from "../components/Product.js";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../redux/actions/productActions.js";
+import {
+  listProducts,
+  getSpeakers,
+  getPhones,
+  getHeadphones,
+} from "../redux/actions/productActions.js";
 import { useParams } from "react-router-dom";
 import Paginate from "../components/Paginate.js";
 import Categories from "../components/Categories.js";
 import TopProducts from "../components/TopProducts.js";
 import { getLandingProducts } from "../redux/actions/landingActions.js";
 import "./styles/Homepages.css";
+import { listCategory } from "../redux/actions/categoryActions.js";
+import LatestSpeakers from "../components/LatestSpeakers.js";
+import LatestHeadPhones from "../components/LatestHeadPhones.js";
+import LatestPhones from "../components/LatestPhones.js";
 
 function Homepages() {
   const { keyword, pageNo } = useParams();
@@ -18,6 +27,9 @@ function Homepages() {
   const dispatch = useDispatch();
 
   const landingProducts = useSelector((state) => state.landing);
+  let productCategory = useSelector((state) => state.category);
+
+  const { category: cat, loading: catLoading } = productCategory;
 
   const { landing } = landingProducts;
 
@@ -25,11 +37,22 @@ function Homepages() {
 
   const { loading, error, products, pages, page } = productList;
 
+  //get latest speakers
+  const latestphones = useSelector((state) => state.speakers);
+  const { loading: phonesLoad, products: phones } = latestphones;
+
+  const latestheadphones = useSelector((state) => state.headphones);
+  const { loading: headphonesLoad, products: headphones } = latestheadphones;
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     dispatch(getLandingProducts());
+    dispatch(listCategory());
     dispatch(listProducts(keyword, pageNumber));
+
+    dispatch(getPhones());
+    dispatch(getHeadphones());
   }, [dispatch, keyword, pageNumber]);
 
   if (loading) {
@@ -75,6 +98,9 @@ function Homepages() {
       <Container>
         <TopProducts />
         <Categories />
+        <LatestSpeakers />
+        <LatestPhones />
+        <LatestHeadPhones />
         <Row>
           {products &&
             products.map((item, k) => {

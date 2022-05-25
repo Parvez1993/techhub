@@ -3,6 +3,7 @@ import NotFoundError from "../errors/not-found.js";
 import BadRequestError from "../errors/bad-request.js";
 import Product from "../models/Product.js";
 import User from "../models/User.js";
+import Category from "../models/Category.js";
 
 const getProducts = async (req, res) => {
   let pageSize = 8;
@@ -73,7 +74,8 @@ const deleteProductbyId = async (req, res) => {
 };
 
 const editProductbyId = async (req, res) => {
-  console.log(req.params.id);
+  console.log("category", req.body.category);
+  console.log(req.body.countInStock);
   const product = await Product.findById(req.params.id);
   if (!product) {
     throw new NotFoundError("No product Found");
@@ -148,6 +150,39 @@ const getTopProducts = async (req, res) => {
   res.send(products);
 };
 
+//get latest speakers
+
+const getLastestSpeakers = async (req, res) => {
+  let products = await Product.find({
+    category: "628bd30e597351997d8c6d08",
+  }).limit(3);
+
+  res.json(products);
+};
+
+const getLastestPhone = async (req, res) => {
+  // let products = await Product.find({}).populate({
+  //   path: "category",
+  //   match: {
+  //     name: "Phone",
+  //   },
+  // });
+
+  let products = await Product.find({
+    category: "62857b6507898709ca95af6e",
+  }).limit(3);
+
+  res.json(products);
+};
+
+const getLastestHeadphone = async (req, res) => {
+  let products = await Product.find({
+    category: "628bd30e597351997d8c6d08",
+  }).limit(3);
+
+  res.json(products);
+};
+
 export {
   getProducts,
   getProductsbyId,
@@ -157,4 +192,7 @@ export {
   updateReviews,
   getTopProducts,
   findProductsbyCategory,
+  getLastestSpeakers,
+  getLastestPhone,
+  getLastestHeadphone,
 };

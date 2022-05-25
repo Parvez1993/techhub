@@ -19,10 +19,13 @@ import {
   createproductReviewReducer,
   deleteProductReducer,
   getTopProducts,
+  headphoneReducer,
+  phoneReducer,
   productCreateReducer,
   ProductDetailReducer,
   ProductListReducer,
   productUpdateReducer,
+  speakerReducer,
 } from "./ProductReducers";
 import {
   userDetailReducer,
@@ -43,6 +46,9 @@ export const rootReducer = combineReducers({
   productCreate: productCreateReducer,
   productDelete: deleteProductReducer,
   productEdit: productUpdateReducer,
+  speakers: speakerReducer,
+  phones: phoneReducer,
+  headphones: headphoneReducer,
   cart: cartReducer,
   userLogin: userloginReducer,
   userDetails: userDetailReducer,

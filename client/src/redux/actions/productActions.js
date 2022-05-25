@@ -21,6 +21,15 @@ import {
   PRODUCT_TOP_BEGIN,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  SPEAKER_GET_BEGIN,
+  SPEAKER_GET_SUCCESS,
+  SPEAKER_GET_FAIL,
+  PHONE_GET_BEGIN,
+  PHONE_GET_SUCCESS,
+  PHONE_GET_FAIL,
+  HEADPHONE_GET_BEGIN,
+  HEADPHONE_GET_SUCCESS,
+  HEADPHONE_GET_FAIL,
 } from "../constants/ProductConstants";
 
 export const listProducts =
@@ -195,6 +204,66 @@ export const getTopProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getSpeakers = () => async (dispatch) => {
+  try {
+    dispatch({ type: SPEAKER_GET_BEGIN });
+    const { data } = await axios.get(`/api/products/newspeaker`);
+
+    dispatch({
+      type: SPEAKER_GET_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SPEAKER_GET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getPhones = () => async (dispatch) => {
+  try {
+    dispatch({ type: PHONE_GET_BEGIN });
+    const { data } = await axios.get(`/api/products/newphone`);
+
+    dispatch({
+      type: PHONE_GET_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PHONE_GET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getHeadphones = () => async (dispatch) => {
+  try {
+    dispatch({ type: HEADPHONE_GET_BEGIN });
+    const { data } = await axios.get(`/api/products/newheadphone`);
+
+    dispatch({
+      type: HEADPHONE_GET_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: HEADPHONE_GET_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

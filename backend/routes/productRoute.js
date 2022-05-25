@@ -3,6 +3,9 @@ import {
   deleteProductbyId,
   editProductbyId,
   findProductsbyCategory,
+  getLastestHeadphone,
+  getLastestPhone,
+  getLastestSpeakers,
   getProducts,
   getProductsbyId,
   getTopProducts,
@@ -16,6 +19,9 @@ const productRouter = express.Router();
 
 productRouter.route("/").get(getProducts);
 productRouter.route("/topproducts").get(getTopProducts);
+productRouter.route("/newspeaker").get(getLastestSpeakers);
+productRouter.route("/newphone").get(getLastestPhone);
+productRouter.route("/newheadphone").get(getLastestHeadphone);
 productRouter.route("/:id").get(getProductsbyId);
 productRouter.route("/addProducts").post(auth, adminAuth, addProductbyId);
 productRouter.route("/:id/delete").delete(auth, adminAuth, deleteProductbyId);

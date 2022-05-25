@@ -23,6 +23,15 @@ import {
   PRODUCT_TOP_BEGIN,
   PRODUCT_TOP_FAIL,
   PRODUCT_TOP_SUCCESS,
+  SPEAKER_GET_BEGIN,
+  SPEAKER_GET_SUCCESS,
+  SPEAKER_GET_FAIL,
+  PHONE_GET_BEGIN,
+  PHONE_GET_SUCCESS,
+  PHONE_GET_FAIL,
+  HEADPHONE_GET_BEGIN,
+  HEADPHONE_GET_SUCCESS,
+  HEADPHONE_GET_FAIL,
 } from "../constants/ProductConstants";
 
 export const ProductListReducer = (state = { product: [] }, action) => {
@@ -151,6 +160,63 @@ export const getTopProducts = (state = { topProducts: [] }, action) => {
         success: true,
       };
     case PRODUCT_TOP_FAIL:
+      return { ...state, loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const speakerReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case SPEAKER_GET_BEGIN:
+      return { ...state, loading: true };
+    case SPEAKER_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        success: true,
+      };
+    case SPEAKER_GET_FAIL:
+      return { ...state, loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const phoneReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PHONE_GET_BEGIN:
+      return { ...state, loading: true };
+    case PHONE_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        success: true,
+      };
+    case PHONE_GET_FAIL:
+      return { ...state, loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const headphoneReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case HEADPHONE_GET_BEGIN:
+      return { ...state, loading: true };
+    case HEADPHONE_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        success: true,
+      };
+    case HEADPHONE_GET_FAIL:
       return { ...state, loading: false, error: action.payload };
 
     default:
