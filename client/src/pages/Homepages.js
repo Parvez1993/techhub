@@ -50,9 +50,6 @@ function Homepages() {
     dispatch(getLandingProducts());
     dispatch(listCategory());
     dispatch(listProducts(keyword, pageNumber));
-
-    dispatch(getPhones());
-    dispatch(getHeadphones());
   }, [dispatch, keyword, pageNumber]);
 
   if (loading) {
@@ -101,7 +98,7 @@ function Homepages() {
         <LatestSpeakers />
         <LatestPhones />
         <LatestHeadPhones />
-        <Row>
+        {/* <Row>
           {products &&
             products.map((item, k) => {
               return (
@@ -115,7 +112,21 @@ function Homepages() {
           pages={pages} //3
           page={pageNumber} //1
           keyword={keyword ? keyword : ""} //keyword
-        />
+        /> */}
+
+        <div className="text_deco">
+          <h2 data-text="Products">Products</h2>
+        </div>
+        <Row className="justify-content-between flex-wrap gap-x-2">
+          {products &&
+            products.slice(0, 3).map((item, k) => {
+              return (
+                <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
+                  <Product product={item} />
+                </Col>
+              );
+            })}
+        </Row>
       </Container>
     </>
   );

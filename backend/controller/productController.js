@@ -177,7 +177,7 @@ const getLastestPhone = async (req, res) => {
 
 const getLastestHeadphone = async (req, res) => {
   let products = await Product.find({
-    category: "628bd30e597351997d8c6d08",
+    category: "628bd2297808c70bc1fef142",
   }).limit(3);
 
   res.json(products);

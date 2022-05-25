@@ -46,9 +46,7 @@ function Ratings({ ratings, numberOfRatings }) {
         )}
       </div>
       <div>
-        <p>
-          No of Ratings <Badge bg="secondary">{numberOfRatings}</Badge>
-        </p>
+        <p>No of ratings: {numberOfRatings}</p>
       </div>
     </div>
   );

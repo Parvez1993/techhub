@@ -1,0 +1,41 @@
+.card_box {
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 7px #dfdfdf;
+}
+
+.cardName {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: white;
+  background: rgb(213, 22, 22);
+  padding: 5px;
+}
+
+.card_img {
+  object-fit: contain;
+  height: 300px;
+  width: 300px;
+  transition: transform 0.4s;
+}
+
+.card_img:hover {
+  transform: scale(0.8);
+}
+
+.cardPrice {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: white;
+  background: rgb(52, 54, 52);
+  padding: 5px;
+  border-radius: 20px;
+}

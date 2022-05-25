@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpeakers } from "../redux/actions/productActions";
-
+import { getPhones, getSpeakers } from "../redux/actions/productActions";
+import "./styles/Latestphones.css";
 function LatestPhones() {
   const dispatch = useDispatch();
   //get latest speakers
@@ -9,7 +9,7 @@ function LatestPhones() {
   const { products: speakers, loading } = latestspeakers;
 
   useEffect(() => {
-    dispatch(getSpeakers());
+    dispatch(getPhones());
   }, [dispatch]);
 
   return (
@@ -21,13 +21,13 @@ function LatestPhones() {
           <div className="text_deco">
             <h2 data-text="Latest Phones">Latest Phones</h2>
           </div>
-          <div className="category_card2 d-flex justify-content-between flex-wrap gap-2">
+          <div className="d-flex justify-content-between flex-wrap gap-2">
             {speakers.map((i, k) => {
               return (
-                <div className="img_box">
-                  <img src={i.image} alt={i.name} className="cat__img" />
-                  <div className="name">{i.name}</div>
-                  <div className="description">{i.price}</div>
+                <div className="card_box">
+                  <img src={i.image} alt={i.name} className="card_img" />
+                  <div className="cardName">{i.name}</div>
+                  <div className="cardPrice">${i.price}</div>
                 </div>
               );
             })}
