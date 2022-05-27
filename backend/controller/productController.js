@@ -154,6 +154,19 @@ const getTopProducts = async (req, res) => {
 
 //get latest speakers
 
+const getCategories = async (req, res) => {};
+
+// const getLastestSpeakers = async (req, res) => {
+//   let products = await Product.distinct("category_name");
+
+//   //use promise all for map function
+//   const resultArray = await Promise.all(
+//     products.map(async (i) => await Product.find({ category_name: i }).limit(1))
+//   );
+
+//   res.send(resultArray);
+// };
+
 const getLastestSpeakers = async (req, res) => {
   let products = await Product.find({
     category: "628bd30e597351997d8c6d08",

@@ -212,25 +212,47 @@ export const getTopProducts = () => async (dispatch) => {
   }
 };
 
-export const getSpeakers = () => async (dispatch) => {
-  try {
-    dispatch({ type: SPEAKER_GET_BEGIN });
-    const { data } = await axios.get(`/api/products/newspeaker`);
+export const getSpeakers =
+  (products = []) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: SPEAKER_GET_BEGIN });
+      const { data } = await axios.get(`/api/products/newspeaker`);
 
-    dispatch({
-      type: SPEAKER_GET_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: SPEAKER_GET_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: SPEAKER_GET_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SPEAKER_GET_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+// export const getSpeakers = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: SPEAKER_GET_BEGIN });
+//     const { data } = await axios.get(`/api/products/newspeaker`);
+
+//     dispatch({
+//       type: SPEAKER_GET_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: SPEAKER_GET_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
 
 export const getPhones = () => async (dispatch) => {
   try {
