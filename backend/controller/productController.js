@@ -51,6 +51,7 @@ const addProductbyId = async (req, res) => {
     image: "/images/sample.jpg",
     brand: "Sample brand",
     category: "62857b6507898709ca95af6e",
+    category_name: "Phone",
     countInStock: 0,
     numReviews: 0,
     description: "Sample description",
@@ -83,6 +84,7 @@ const editProductbyId = async (req, res) => {
     product.name = req.body.name || product.name;
     product.price = req.body.price || product.price;
     product.category = req.body.category || product.category;
+    product.category_name = req.body.category_name || product.category_name;
     product.countInStock = req.body.countInStock || product.countInStock;
     product.description = req.body.description || product.description;
     product.brand = req.body.brand || product.brand;

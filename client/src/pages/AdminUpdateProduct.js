@@ -36,6 +36,7 @@ function AdminUpdateProduct() {
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("62857b6507898709ca95af6e");
+  const [categoryName, setCategoryName] = useState("Phone");
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
@@ -98,6 +99,7 @@ function AdminUpdateProduct() {
         image: image,
         brand,
         category,
+        category_name: categoryName,
         description,
         countInStock,
       })
@@ -176,12 +178,24 @@ function AdminUpdateProduct() {
                       label={`${i.name}`}
                       name="single"
                       id={`disabled-default-checkbox`}
-                      onClick={() => setCategory(i._id)}
+                      onClick={() => {
+                        setCategory(i._id);
+                        setCategoryName(i.name);
+                      }}
                       checked={i._id === category}
                     />
                   );
                 })}
 
+                <Form.Group controlId="categoryName">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter description"
+                    value={categoryName}
+                    onChange={(e) => setDescription(e.target.value)}
+                    style={{ display: "none" }}
+                  ></Form.Control>
+                </Form.Group>
                 <Form.Group controlId="description">
                   <Form.Label>Description</Form.Label>
                   <Form.Control
