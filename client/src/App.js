@@ -23,6 +23,7 @@ import AdminOrderList from "./pages/AdminOrderList";
 import "swiper/css/bundle";
 import CategoryEdit from "./pages/CategoryEdit";
 import CategoryList from "./pages/CategoryList";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -31,13 +32,29 @@ function App() {
         <Appbar />
         <Routes>
           <Route path="/" exact element={<Homepages />}></Route>
-          <Route path="/page/:pageNo" element={<Homepages />} exact></Route>
+          {/* <Route path="/page/:pageNo" element={<Homepages />} exact></Route>
           <Route
             path="/search/:keyword/page/:pageNo"
             element={<Homepages />}
             exact
+          ></Route> */}
+          <Route path="/products" exact element={<ProductPage />}></Route>
+          <Route
+            path="/products/page/:pageNo"
+            element={<ProductPage />}
+            exact
           ></Route>
-          <Route path="/search/:keyword" element={<Homepages />} exact></Route>
+          <Route
+            path="/products/search/:keyword/page/:pageNo"
+            element={<ProductPage />}
+            exact
+          ></Route>
+          {/* <Route path="/search/:keyword" element={<Homepages />} exact></Route> */}
+          <Route
+            path="/products/search/:keyword"
+            element={<ProductPage />}
+            exact
+          ></Route>
           <Route path="/products/:id" element={<ProductDetail />}></Route>
           <Route path="/cart/:id" element={<CartPage />}></Route>
           <Route path="/login" element={<Login />}></Route>

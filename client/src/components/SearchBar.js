@@ -9,9 +9,9 @@ function SearchBar() {
     e.preventDefault();
 
     if (e.target.value.trim()) {
-      navigate(`/search/${e.target.value}`);
+      navigate(`/products/search/${e.target.value}`);
     } else {
-      navigate("/");
+      navigate("/products");
     }
   };
   return (

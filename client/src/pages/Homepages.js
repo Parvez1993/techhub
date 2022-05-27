@@ -119,7 +119,7 @@ function Homepages() {
         </div>
         <Row className="justify-content-between flex-wrap gap-x-2">
           {products &&
-            products.map((item, k) => {
+            products.slice(0, 3).map((item, k) => {
               return (
                 <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
                   <Product product={item} />
