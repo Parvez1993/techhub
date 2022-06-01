@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHeadphones, getSpeakers } from "../redux/actions/productActions";
+import Product from "./Product";
 import "./styles/Latestphones.css";
 
 function LatestHeadPhones() {
@@ -24,14 +25,12 @@ function LatestHeadPhones() {
           </div>
           <div className="d-flex justify-content-between flex-wrap gap-2">
             {headphones.map((i, k) => {
-              return (
-                <div className="card_box">
-                  <img src={i.image} alt={i.name} className="card_img" />
-                  <div className="cardName">{i.name}</div>
-                  <div className="cardPrice">${i.price}</div>
-                </div>
-              );
+              return <Product product={i} tag="Bass Xtreme" bg="#e3e4fa" />;
             })}
+
+            {/* <img src={i.image} alt={i.name} className="card_img" />
+                  <div className="cardName">{i.name}</div>
+                  <div className="cardPrice">${i.price}</div> */}
           </div>
         </>
       )}

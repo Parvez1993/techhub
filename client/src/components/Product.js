@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { listCategory } from "../redux/actions/categoryActions";
 import Ratings from "./Ratings";
 import "./styles/Product.css";
-function Product({ product }) {
+function Product({ product, tag, bg }) {
   const { _id, image, name, rating, numReviews, price, category } = product;
   const categoryList = useSelector((state) => state.category);
 
@@ -27,8 +27,8 @@ function Product({ product }) {
         <>
           {" "}
           <div class="product-card">
-            <div class="badge">Sneak Peak</div>
-            <div class="product-tumb">
+            <div class="badge">{tag}</div>
+            <div class="product-tumb" style={{ background: `${bg}` }}>
               <img src={image} alt="" />
             </div>
             <div class="product-details">

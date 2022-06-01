@@ -57,63 +57,107 @@ function Login() {
         pauseOnHover
       />
 
-      <div className="login">
-        <div className="w-50 mx-auto border rounded">
-          <form className="p-3">
-            <h3 className="text-center my-3">
-              {isMember ? "Sign in" : "Register"}
-            </h3>
+      <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+              <div class="card">
+                <div class="row g-0">
+                  <div class="col-md-6 col-lg-5 d-none d-md-block">
+                    {!isMember ? (
+                      <img
+                        src="https://img.freepik.com/free-photo/fulllengt-portrait-young-girl-listening-music-headphones-posing-isolated-blue-studio-background_155003-45951.jpg?t=st=1654005771~exp=1654006371~hmac=3d9f625b31d42075155e95d82b945fef49a288b82b3dd504da51623dbb2f7a2a&w=740"
+                        alt="login form"
+                        class="img-fluid"
+                      />
+                    ) : (
+                      <img
+                        src="https://img.freepik.com/free-photo/vertical-shot-happy-smiling-young-woman-points-index-finger-overhead-listens-music-via-headphoes-dressed-knitted-sweater-isolated-purple-background-with-blank-space-place-text_273609-58585.jpg?t=st=1654005771~exp=1654006371~hmac=13ab331922c9f865cb02c308afd88b77203e86033c41a0807385e56c78f1e057&w=740"
+                        alt="login form"
+                        class="img-fluid"
+                      />
+                    )}
+                  </div>
 
-            {error ? <Alert>{error}</Alert> : ""}
+                  <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                    <div class="card-body p-4 p-lg-5 text-black">
+                      {error ? <Alert>{error}</Alert> : ""}
+                      <form>
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                          <span class="h1 fw-bold mb-0">Techno Hub</span>
+                        </div>
 
-            {!isMember ? (
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="name"
-                  className="form-control"
-                  placeholder="Enter name"
-                  onChange={(e) => setName(e.target.value)}
-                />
+                        <h5 class="fw-normal mb-3 pb-3">
+                          {!isMember
+                            ? "Register and buy the best"
+                            : " Sign into your account"}
+                        </h5>
+
+                        {!isMember ? (
+                          <div class="form-outline mb-4">
+                            <input
+                              type="text"
+                              id="form2Example17"
+                              class="form-control form-control-lg"
+                              onChange={(e) => setName(e.target.value)}
+                            />
+                            <label class="form-label" for="form2Example17">
+                              Name
+                            </label>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="email"
+                            id="form2Example17"
+                            class="form-control form-control-lg"
+                          />
+                          <label class="form-label" for="form2Example17">
+                            Email address
+                          </label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="form2Example27"
+                            class="form-control form-control-lg"
+                          />
+                          <label class="form-label" for="form2Example27">
+                            Password
+                          </label>
+                        </div>
+
+                        <div class="pt-1 mb-4">
+                          <button
+                            class="btn btn-dark btn-lg btn-block"
+                            type="button"
+                            onClick={handleSubmit}
+                          >
+                            {!isMember ? "Register" : "Sign in"}
+                          </button>
+                        </div>
+
+                        <p
+                          className="text-right"
+                          onClick={() => setIsMember(!isMember)}
+                        >
+                          {isMember
+                            ? "Don't have an account? Click here"
+                            : "Already have an account click here"}
+                        </p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
-            <div className="form-group my-3">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
             </div>
-
-            <div className="form-group my-3">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button
-              className="btn btn-dark btn-md w-100 btn-block my-3"
-              onClick={handleSubmit}
-            >
-              {!isMember ? "Register" : "Sign in"}
-            </button>
-            <p className="text-right" onClick={() => setIsMember(!isMember)}>
-              {isMember
-                ? "Don't have an account? Click here"
-                : "Already have an account click here"}
-              {/* <a href={`/signup?redirect=${redirect}`}>password?</a> */}
-            </p>
-          </form>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Badge } from "react-bootstrap";
 import "./styles/Rating.css";
 function Ratings({ ratings, numberOfRatings }) {
   return (
-    <div className="d-flex justify-content-between">
+    <div className="d-flex gap-4">
       <div>
         {ratings >= 1 ? (
           <i className="fas fa-star icon"></i>

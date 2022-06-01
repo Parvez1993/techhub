@@ -35,18 +35,11 @@ function ProductPage() {
             <div className="text_deco">
               <h2 data-text="Products">Products</h2>
             </div>
-            <Row className="justify-content-between flex-wrap gap-x-2">
+            <Row className="justify-content-around flex-wrap gap-1">
               {products &&
                 products.map((item, k) => {
                   return (
-                    <Col
-                      key={k}
-                      className="my-1 mx-1"
-                      sm={12}
-                      md={6}
-                      lg={3}
-                      xl={3}
-                    >
+                    <Col key={k} className="my-1" sm={12} md={6} lg={3} xl={3}>
                       <Product product={item} />
                     </Col>
                   );

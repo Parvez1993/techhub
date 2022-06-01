@@ -3,12 +3,17 @@
   width: auto;
 }
 
+.box {
+  width: 80vw;
+  margin: 0 auto;
+}
+
 /* //some effects */
 
 .text_deco2 {
   display: flex;
   justify-content: center;
-  margin: 80px;
+  padding: 50px;
 }
 h2 {
   color: #100f10;

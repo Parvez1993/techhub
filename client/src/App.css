@@ -31,3 +31,10 @@ a {
 }
 
 /* //animated */
+
+/* custom container */
+
+.custom_container {
+  width: 1320px !important;
+  margin: 0 auto;
+}

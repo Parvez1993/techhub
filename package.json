@@ -17,6 +17,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.30.0",
     "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "create-react-app": "^5.0.1",
