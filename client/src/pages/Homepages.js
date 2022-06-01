@@ -108,7 +108,7 @@ function Homepages() {
             products.slice(0, 3).map((item, k) => {
               return (
                 <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
-                  <Product product={item} />
+                  <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
                 </Col>
               );
             })}

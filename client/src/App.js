@@ -45,10 +45,16 @@ function App() {
             exact
           ></Route>
           <Route
+            path="/products/page/:pageNo/sort/:sort"
+            element={<ProductPage />}
+            exact
+          ></Route>
+          <Route
             path="/products/search/:keyword/page/:pageNo"
             element={<ProductPage />}
             exact
           ></Route>
+
           {/* <Route path="/search/:keyword" element={<Homepages />} exact></Route> */}
           <Route
             path="/products/search/:keyword"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import "./styles/Search.css";
 function SearchBar() {
   const navigate = useNavigate();
 
@@ -15,13 +15,23 @@ function SearchBar() {
     }
   };
   return (
-    <Form className="d-flex ms-4" onSubmit={submitHandler}>
-      <Form.Control
+    // <Form className="d-flex ms-4" onSubmit={submitHandler}>
+    //   <input
+    //     type="text"
+    //     size="sm"
+    //     className="search"
+    //     onChange={submitHandler}
+    //   ></input>
+    // </Form>
+    <div class="form-group has-search">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input
         type="text"
-        size="sm"
+        class="form-control"
+        placeholder="Search"
         onChange={submitHandler}
-      ></Form.Control>
-    </Form>
+      />
+    </div>
   );
 }
 

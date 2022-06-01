@@ -16,8 +16,6 @@ function Product({ product, tag, bg }) {
     dispatch(listCategory());
   }, [dispatch]);
 
-  console.log(cat.find((i) => i._id === category));
-
   return (
     <>
       {" "}

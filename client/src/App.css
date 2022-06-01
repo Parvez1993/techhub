@@ -38,3 +38,13 @@ a {
   width: 1320px !important;
   margin: 0 auto;
 }
+
+/* ///sort */
+.sort {
+  z-index: 2;
+  border: 1px solid #aaa;
+  width: 100px;
+  height: 38px;
+  text-align: center;
+  color: #aaa;
+}
