@@ -21,8 +21,12 @@ const getProducts = async (req, res) => {
 
   const order = req.query.sort || "latest";
   const categoryFilter = req.query.cat ? { category_name: req.query.cat } : {};
+  const min =
+    req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
+  const max =
+    req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0;
 
-  console.log(req.query.cat);
+  const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
 
   const sortOrder =
     order === "oldest"
@@ -35,7 +39,11 @@ const getProducts = async (req, res) => {
 
   const totalProducts = await Product.count(keyword);
   const numOfPages = Math.ceil(totalProducts / pageSize);
-  const products = await Product.find({ ...keyword, ...categoryFilter })
+  const products = await Product.find({
+    ...keyword,
+    ...categoryFilter,
+    ...priceFilter,
+  })
     .sort(sortOrder)
     .skip(skip)
     .limit(pageSize);

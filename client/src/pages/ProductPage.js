@@ -6,7 +6,6 @@ import Paginate from "../components/Paginate";
 import Product from "../components/Product";
 import SearchBar from "../components/SearchBar";
 import { listProducts } from "../redux/actions/productActions";
-
 import {
   Accordion,
   AccordionItem,
@@ -18,9 +17,10 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
 import { listCategory } from "../redux/actions/categoryActions";
+import { prices } from "../utils";
 
 function ProductPage() {
-  const { keyword, pageNo, sort, cat: catParams } = useParams();
+  const { keyword, pageNo, sort, cat: catParams, min, max } = useParams();
 
   let pageNumber = pageNo ? pageNo : 1;
 
@@ -41,12 +41,18 @@ function ProductPage() {
 
   const [cat, setCat] = useState("all");
 
+  const [minprice, setminprice] = useState(0);
+  const [maxprice, setmaxprice] = useState(1000);
+  //price
+
   useEffect(() => {
     if (!category.length > 0) {
       dispatch(listCategory());
     }
     dispatch(listProducts(keyword, pageNumber, sort, catParams));
   }, [dispatch, keyword, pageNumber, sort, catParams]);
+
+  //handle filter
 
   // handle sort
   const handleChange = (e) => {
@@ -58,6 +64,8 @@ function ProductPage() {
 
   // handle category
 
+  //price handler
+
   const handleCategory = (e) => {
     e.preventDefault();
     setCat(e.target.innerText);
@@ -68,6 +76,11 @@ function ProductPage() {
         `/products/page/1/sort/${sorted}/category/${e.target.innerText}`
       );
     }
+  };
+
+  const handlePrice = (min, max) => {
+    setminprice(min);
+    setmaxprice(max);
   };
   return (
     <>
@@ -107,8 +120,9 @@ function ProductPage() {
       {/* // FILTER  */}
       <Row className="my-5">
         <Col lg={2}>
-          <ListGroup className="text-secondary">
+          <ListGroup className="text-secondary ps-2">
             <ListGroup.Item>Filter</ListGroup.Item>
+            {/* //category */}
             <ListGroup.Item>
               <Accordion>
                 <AccordionItem>
@@ -130,6 +144,32 @@ function ProductPage() {
                           </div>
                         );
                       })}
+                    </ul>
+                  </AccordionItemPanel>
+                </AccordionItem>
+              </Accordion>
+            </ListGroup.Item>
+
+            {/* //prices */}
+
+            <ListGroup.Item>
+              <Accordion>
+                <AccordionItem>
+                  <AccordionItemHeading>
+                    {/* CATEGORY FILTER */}
+                    <AccordionItemButton>Prices</AccordionItemButton>
+                  </AccordionItemHeading>
+                  <AccordionItemPanel>
+                    <ul style={{ listStyle: "none", width: "400px" }}>
+                      {prices.map((p) => (
+                        <li
+                          key={p.name}
+                          onClick={() => handlePrice(p.min, p.max)}
+                          className="my-2"
+                        >
+                          {p.name}
+                        </li>
+                      ))}
                     </ul>
                   </AccordionItemPanel>
                 </AccordionItem>
