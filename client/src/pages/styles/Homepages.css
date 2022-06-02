@@ -37,33 +37,3 @@
   transform: translate(100px, 50%);
   animation: myfirst 2s ease-in;
 }
-
-/* @keyframes myfirst {
-  0% {
-    transform: translate(-100px, 50%);
-  }
-
-  100% {
-    transform: translate(0, 50%);
-  }
-}
-
-.third {
-  position: absolute;
-  color: white;
-  top: 20px;
-  right: 10px;
-  transform: translate(2000px, 50%);
-  animation: third 2s ease-in;
-  text-align: right;
-}
-
-@keyframes third {
-  0% {
-    transform: translate(2000px, 50%);
-  }
-
-  100% {
-    transform: translate(0, 50%);
-  }
-} */

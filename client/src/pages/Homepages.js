@@ -114,21 +114,6 @@ function Homepages() {
             })}
         </Row>
       </Container>
-      {/* <Row>
-          {products &&
-            products.map((item, k) => {
-              return (
-                <Col key={k} className="my-5" sm={12} md={6} lg={4} xl={3}>
-                  <Product product={item} />
-                </Col>
-              );
-            })}
-        </Row>
-        <Paginate
-          pages={pages} //3
-          page={pageNumber} //1
-          keyword={keyword ? keyword : ""} //keyword
-        /> */}
     </>
   );
 }

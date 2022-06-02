@@ -33,7 +33,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  font-size: 2em;
+  font-size: 2.2em;
   text-transform: uppercase;
   color: white;
   background: rgb(213, 22, 22);
@@ -48,7 +48,7 @@
 }
 h2 {
   color: #100f10;
-  font-size: 3em;
+  font-size: 2.2em;
   position: relative;
   text-transform: uppercase;
   -webkit-text-stroke: 0.2vw #e9e9e9;
@@ -79,4 +79,12 @@ h2::before {
   90% {
     width: 100%;
   }
+}
+
+.bal h2 {
+  color: #100f10 !important;
+  font-size: 2.5em;
+  position: relative;
+  text-transform: uppercase;
+  -webkit-text-stroke: 0.1vw #010101 !important;
 }

@@ -50,6 +50,11 @@ function App() {
             exact
           ></Route>
           <Route
+            path="/products/page/:pageNo/sort/:sort/category/:cat"
+            element={<ProductPage />}
+            exact
+          ></Route>
+          <Route
             path="/products/search/:keyword/page/:pageNo"
             element={<ProductPage />}
             exact
