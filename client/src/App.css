@@ -48,3 +48,14 @@ a {
   text-align: center;
   color: #aaa;
 }
+
+/* //remove focus */
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn {
+  box-shadow: none !important;
+}

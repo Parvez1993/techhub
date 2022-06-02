@@ -20,12 +20,16 @@ const getProducts = async (req, res) => {
     : {};
 
   const order = req.query.sort || "latest";
-  const categoryFilter = req.query.cat ? { category_name: req.query.cat } : {};
+  const categoryFilter =
+    req.query.cat && req.query.cat !== "All"
+      ? { category_name: req.query.cat }
+      : {};
   const min =
     req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
   const max =
     req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0;
 
+  console.log(req.query.min, req.query.max);
   const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
 
   const sortOrder =

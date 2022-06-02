@@ -24,7 +24,7 @@ function LatestPhones() {
           ) : (
             <>
               <div className="text_deco">
-                <h2 data-text="Latest Headphones">Latest Headphones</h2>
+                <h2 data-text="Latest Phones">Latest Phones</h2>
               </div>
               <div className="d-flex justify-content-between flex-wrap gap-2">
                 {phones.map((i, k) => {

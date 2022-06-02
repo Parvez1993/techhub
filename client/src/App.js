@@ -17,7 +17,6 @@ import OrderScreen from "./pages/OrderScreen";
 import UserList from "./pages/UserList";
 import AdminUpdateUser from "./pages/AdminUpdateUser";
 import ProductList from "./pages/ProductList";
-import CreateProducts from "./pages/CreateProducts";
 import AdminUpdateProduct from "./pages/AdminUpdateProduct";
 import AdminOrderList from "./pages/AdminOrderList";
 import "swiper/css/bundle";
@@ -32,12 +31,6 @@ function App() {
         <Appbar />
         <Routes>
           <Route path="/" exact element={<Homepages />}></Route>
-          {/* <Route path="/page/:pageNo" element={<Homepages />} exact></Route>
-          <Route
-            path="/search/:keyword/page/:pageNo"
-            element={<Homepages />}
-            exact
-          ></Route> */}
           <Route path="/products" exact element={<ProductPage />}></Route>
           <Route
             path="/products/page/:pageNo"
@@ -50,7 +43,7 @@ function App() {
             exact
           ></Route>
           <Route
-            path="/products/page/:pageNo/sort/:sort/category/:cat"
+            path="/products/page/:pageNo/sort/:sort/category/:cat/min/:min/max/:max"
             element={<ProductPage />}
             exact
           ></Route>

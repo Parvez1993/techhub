@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { listCategory } from "../redux/actions/categoryActions";
 import "./styles/Categories.css";
 
@@ -25,11 +26,15 @@ function Categories() {
           <div className="category_card d-flex justify-content-center flex-wrap gap-2">
             {category.map((i, k) => {
               return (
-                <div className="img_box">
-                  <img src={i.image} alt={i.name} className="cat__img" />
-                  <div className="name">{i.name}</div>
-                  <div className="description">{i.description}</div>
-                </div>
+                <Link
+                  to={`/products/page/1/sort/latest/category/${i.name}/min/0/max/0`}
+                >
+                  <div className="img_box">
+                    <img src={i.image} alt={i.name} className="cat__img" />
+                    <div className="name">{i.name}</div>
+                    <div className="description">{i.description}</div>
+                  </div>
+                </Link>
               );
             })}
           </div>

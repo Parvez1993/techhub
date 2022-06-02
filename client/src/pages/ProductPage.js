@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Image, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import Product from "../components/Product";
 import SearchBar from "../components/SearchBar";
@@ -20,7 +20,14 @@ import { listCategory } from "../redux/actions/categoryActions";
 import { prices } from "../utils";
 
 function ProductPage() {
-  const { keyword, pageNo, sort, cat: catParams, min, max } = useParams();
+  const {
+    keyword,
+    pageNo,
+    sort,
+    cat: catParams,
+    min = 0,
+    max = 0,
+  } = useParams();
 
   let pageNumber = pageNo ? pageNo : 1;
 
@@ -49,8 +56,8 @@ function ProductPage() {
     if (!category.length > 0) {
       dispatch(listCategory());
     }
-    dispatch(listProducts(keyword, pageNumber, sort, catParams));
-  }, [dispatch, keyword, pageNumber, sort, catParams]);
+    dispatch(listProducts(keyword, pageNumber, sort, catParams, min, max));
+  }, [dispatch, keyword, pageNumber, sort, catParams, min, max]);
 
   //handle filter
 
@@ -82,6 +89,17 @@ function ProductPage() {
     setminprice(min);
     setmaxprice(max);
   };
+
+  const getFilterUrl = (filter) => {
+    let sortOrder = filter.sort || sorted;
+
+    const filterCategory = filter.category || "All";
+
+    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
+    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
+
+    return `/products/page/1/sort/${sortOrder}/category/${filterCategory}/min/${filterMin}/max/${filterMax}`;
+  };
   return (
     <>
       <Image
@@ -102,7 +120,9 @@ function ProductPage() {
             <div>
               <select
                 class="custom-select custom-select-lg py-2 sort"
-                onChange={handleChange}
+                onChange={(e) => {
+                  navigate(getFilterUrl({ sort: e.target.value }));
+                }}
               >
                 {sortOptions.map((i, k) => {
                   return (
@@ -119,7 +139,7 @@ function ProductPage() {
 
       {/* // FILTER  */}
       <Row className="my-5">
-        <Col lg={2}>
+        <Col lg={3}>
           <ListGroup className="text-secondary ps-2">
             <ListGroup.Item>Filter</ListGroup.Item>
             {/* //category */}
@@ -132,14 +152,16 @@ function ProductPage() {
                   </AccordionItemHeading>
                   <AccordionItemPanel>
                     <ul style={{ listStyle: "none" }}>
-                      <li className="my-2" onClick={handleCategory}>
-                        All
+                      <li className="my-2">
+                        <Link to={getFilterUrl({ category: "All" })}>All</Link>
                       </li>
                       {category.map((i, k) => {
                         return (
                           <div key={k}>
-                            <li className="my-2" onClick={handleCategory}>
-                              {i.name}
+                            <li className="my-2">
+                              <Link to={getFilterUrl({ category: i.name })}>
+                                {i.name}
+                              </Link>
                             </li>
                           </div>
                         );
@@ -162,12 +184,10 @@ function ProductPage() {
                   <AccordionItemPanel>
                     <ul style={{ listStyle: "none", width: "400px" }}>
                       {prices.map((p) => (
-                        <li
-                          key={p.name}
-                          onClick={() => handlePrice(p.min, p.max)}
-                          className="my-2"
-                        >
-                          {p.name}
+                        <li key={p.name} className="my-2">
+                          <Link to={getFilterUrl({ min: p.min, max: p.max })}>
+                            {p.name}
+                          </Link>
                         </li>
                       ))}
                     </ul>

@@ -35,14 +35,13 @@ function Appbar() {
         <Link to="/">
           <Navbar.Brand>Techno Hub</Navbar.Brand>
         </Link>
-        <SearchBar />
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mx-auto align-items-center">
-            <LinkContainer to="/cart">
+          <Nav className="ms-auto align-items-center">
+            <LinkContainer to="/products">
               <Nav.Link>
-                <i className="fas fa-shopping-cart"></i> Cart
+                <i className="fa fa-shopping-bag"></i> Products
               </Nav.Link>
             </LinkContainer>
 
@@ -78,6 +77,11 @@ function Appbar() {
                 </LinkContainer>
               </NavDropdown>
             )}
+            <LinkContainer to="/cart">
+              <Nav.Link>
+                <i className="fas fa-shopping-cart"></i> Cart
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>

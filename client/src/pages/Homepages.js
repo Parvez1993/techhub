@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Image, Row } from "react-bootstrap";
 import Product from "../components/Product.js";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  listProducts,
-  getSpeakers,
-  getPhones,
-  getHeadphones,
-} from "../redux/actions/productActions.js";
-import { useParams } from "react-router-dom";
-import Paginate from "../components/Paginate.js";
+import { listProducts } from "../redux/actions/productActions.js";
+import { Link, useParams } from "react-router-dom";
 import Categories from "../components/Categories.js";
 import TopProducts from "../components/TopProducts.js";
 import { getLandingProducts } from "../redux/actions/landingActions.js";
@@ -96,24 +90,47 @@ function Homepages() {
       <div>
         <Categories />
       </div>
+      <Image
+        src="https://i.pinimg.com/originals/57/48/de/5748de0245ef4f31d8bae0d0b95d227f.jpg"
+        alt="speaker"
+        className=" w-100  my-3"
+      />
       <Container>
         <LatestSpeakers />
-        <LatestPhones />
-        <LatestHeadPhones />
-        <div className="text_deco">
-          <h2 data-text="Products">Products</h2>
-        </div>
-        <Row className="justify-content-between flex-wrap gap-x-2">
-          {products &&
-            products.slice(0, 3).map((item, k) => {
-              return (
-                <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
-                  <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
-                </Col>
-              );
-            })}
-        </Row>
       </Container>
+
+      <Image
+        src="https://images.squarespace-cdn.com/content/v1/5936edf620099eda1a45cbdf/1496786888928-WR6B8L72LODW1WT217HA/Samsung+S8+Banner.jpg?format=2500w"
+        alt="speaker"
+        className=" w-100 my-3"
+      />
+      <Container>
+        <LatestPhones />
+      </Container>
+
+      <Container>
+        <LatestHeadPhones />
+      </Container>
+      <div className="text_deco">
+        <h2 data-text="Products">Products</h2>
+      </div>
+      <Row className="justify-content-between flex-wrap gap-x-2">
+        {products &&
+          products.slice(0, 3).map((item, k) => {
+            return (
+              <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
+                <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
+              </Col>
+            );
+          })}
+        <div className="d-flex justify-content-center my-4">
+          <Link to="/products">
+            <Button size="lg" style={{ background: "#D51616", color: "#fff" }}>
+              View All Products
+            </Button>
+          </Link>
+        </div>
+      </Row>
     </>
   );
 }
