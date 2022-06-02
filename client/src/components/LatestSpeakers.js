@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpeakers } from "../redux/actions/productActions";
+import Loader from "./Loader";
 import Product from "./Product";
 import "./styles/Latestphones.css";
 
@@ -17,7 +18,7 @@ function LatestSpeakers() {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <>
           <div className="text_deco">

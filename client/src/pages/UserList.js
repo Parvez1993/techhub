@@ -3,6 +3,7 @@ import { Alert, Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 import { deleteUsers, getUsers } from "../redux/actions/userActions";
 
 function UserList() {
@@ -12,7 +13,7 @@ function UserList() {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.userLogin);
-  const { error: userError, loading: userLoading, userInfo } = user;
+  const { userInfo } = user;
 
   const deletedUser = useSelector((state) => state.userDelete);
 
@@ -42,7 +43,7 @@ function UserList() {
       <>
         <h1>Users</h1>
         {loading ? (
-          "loading"
+          <Loader />
         ) : error ? (
           <Alert variant="danger">{error}</Alert>
         ) : (

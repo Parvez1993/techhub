@@ -9,11 +9,10 @@ import {
   Row,
   Card,
   Button,
-  ListGroupItem,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import CheckoutSteps from "../components/CheckoutSteps";
+
 import {
   deliverOrder,
   getOrderDetails,
@@ -24,6 +23,7 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVERY_RESET,
 } from "../redux/constants/OrderConstants";
+import Loader from "../components/Loader";
 
 function OrderScreen() {
   const { id: orderId } = useParams();
@@ -40,7 +40,7 @@ function OrderScreen() {
 
   const orderDeliver = useSelector((state) => state.orderDelivery);
 
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+  const { success: successDeliver } = orderDeliver;
 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
@@ -98,7 +98,7 @@ function OrderScreen() {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
@@ -220,9 +220,9 @@ function OrderScreen() {
                     </ListGroup.Item>
                     {!order.isPaid && (
                       <ListGroup.Item>
-                        {loadingPay && "loading"}
+                        {loadingPay && <Loader />}
                         {!sdkReady ? (
-                          "loading"
+                          <Loader />
                         ) : (
                           <PayPalButton
                             amount={order.totalPrice}

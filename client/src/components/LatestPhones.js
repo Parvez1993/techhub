@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPhones, getSpeakers } from "../redux/actions/productActions";
+import { getPhones } from "../redux/actions/productActions";
+import Loader from "./Loader";
 import Product from "./Product";
 import "./styles/Latestphones.css";
 function LatestPhones() {
   const dispatch = useDispatch();
-  //get latest speakers
   const latestspeakers = useSelector((state) => state.phones);
   const { products: phones, loading } = latestspeakers;
 
@@ -16,11 +16,11 @@ function LatestPhones() {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <>
           {loading ? (
-            "loading"
+            <Loader />
           ) : (
             <>
               <div className="text_deco">
@@ -32,10 +32,6 @@ function LatestPhones() {
                     <Product product={i} tag="Limited Editions" bg="#ffe3e8" />
                   );
                 })}
-
-                {/* <img src={i.image} alt={i.name} className="card_img" />
-                    <div className="cardName">{i.name}</div>
-                    <div className="cardPrice">${i.price}</div> */}
               </div>
             </>
           )}

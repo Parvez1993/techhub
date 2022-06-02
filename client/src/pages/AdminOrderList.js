@@ -3,6 +3,7 @@ import { Alert, Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 import { listOrders } from "../redux/actions/orderActions";
 
 function AdminOrderList() {
@@ -20,13 +21,14 @@ function AdminOrderList() {
     } else {
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <h1>Orders</h1>
       {loading ? (
-        "loading"
+        <Loader />
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (

@@ -9,6 +9,7 @@ import {
 } from "../redux/actions/productActions";
 import axios from "axios";
 import { listCategory } from "../redux/actions/categoryActions";
+import Loader from "../components/Loader";
 
 function AdminUpdateProduct() {
   const navigate = useNavigate();
@@ -23,13 +24,9 @@ function AdminUpdateProduct() {
 
   const { category: cat, loading: catLoading } = productCategory;
 
-  const { loading, error, product } = productDetail;
+  const { loading, product } = productDetail;
   const productUpdated = useSelector((state) => state.productEdit);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdated;
+  const { success: successUpdate } = productUpdated;
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -60,6 +57,7 @@ function AdminUpdateProduct() {
         setDescription(product.description);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, successUpdate, id, loading]);
 
   const uploadFileHandler = async (e) => {
@@ -213,7 +211,7 @@ function AdminUpdateProduct() {
                     value={image?.image}
                     onChange={uploadFileHandler}
                   />{" "}
-                  {uploading && "loading"}
+                  {uploading && <Loader />}
                 </Form.Group>
                 <Button type="submit" variant="primary">
                   Update

@@ -23,6 +23,7 @@ import "swiper/css/bundle";
 import CategoryEdit from "./pages/CategoryEdit";
 import CategoryList from "./pages/CategoryList";
 import ProductPage from "./pages/ProductPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -94,6 +95,7 @@ function App() {
             exact
           ></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

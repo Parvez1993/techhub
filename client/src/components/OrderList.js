@@ -3,6 +3,7 @@ import { Alert, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyOrders } from "../redux/actions/orderActions";
 import { LinkContainer } from "react-router-bootstrap";
+import Loader from "./Loader";
 
 function OrderList() {
   const orderList = useSelector((state) => state.orderlist);
@@ -18,7 +19,7 @@ function OrderList() {
       {" "}
       <h2>My Orders</h2>
       {loadingOrders ? (
-        "loading"
+        <Loader />
       ) : errorOrders ? (
         <Alert variant="danger">{errorOrders}</Alert>
       ) : (

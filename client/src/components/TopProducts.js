@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTopProducts } from "../redux/actions/productActions";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation } from "swiper";
 import Ratings from "./Ratings";
 import "./styles/Top.css";
+import Loader from "./Loader";
 function TopProducts() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.topProducts);
-  const { topProducts, loading, success, error } = selector;
+  const { topProducts, loading, error } = selector;
 
   useEffect(() => {
     dispatch(getTopProducts());
@@ -18,7 +19,7 @@ function TopProducts() {
       {error ? (
         "error"
       ) : loading ? (
-        "loading"
+        <Loader />
       ) : (
         <>
           <div className="bg-light py-5">

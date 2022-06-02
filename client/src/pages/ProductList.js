@@ -3,6 +3,7 @@ import { Alert, Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../components/Loader";
 import Paginate from "../components/Paginate";
 import {
   createProduct,
@@ -15,7 +16,7 @@ import {
 } from "../redux/constants/ProductConstants";
 
 function ProductList() {
-  const { keyword, pageNo } = useParams();
+  const { pageNo } = useParams();
 
   let pageNumber = pageNo ? pageNo : 1;
   const productList = useSelector((state) => state.productList);
@@ -24,15 +25,10 @@ function ProductList() {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.userLogin);
-  const { error: userError, loading: userLoading, userInfo } = user;
+  const { userInfo } = user;
 
   const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
+  const { success: successCreate, product: createdProduct } = productCreate;
 
   const deletedProduct = useSelector((state) => state.productDelete);
   const productUpdated = useSelector((state) => state.productEdit);
@@ -55,6 +51,7 @@ function ProductList() {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct.product._id}/update`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     dispatch,
     navigate,
@@ -84,7 +81,7 @@ function ProductList() {
       </div>
       <>
         {loading ? (
-          "loading"
+          <Loader />
         ) : error ? (
           <Alert variant="danger">{error}</Alert>
         ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getHeadphones, getSpeakers } from "../redux/actions/productActions";
+import { getHeadphones } from "../redux/actions/productActions";
+import Loader from "./Loader";
 import Product from "./Product";
 import "./styles/Latestphones.css";
 
@@ -17,7 +18,7 @@ function LatestHeadPhones() {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <>
           <div className="text_deco">
@@ -27,10 +28,6 @@ function LatestHeadPhones() {
             {headphones.map((i, k) => {
               return <Product product={i} tag="Bass Xtreme" bg="#e3e4fa" />;
             })}
-
-            {/* <img src={i.image} alt={i.name} className="card_img" />
-                  <div className="cardName">{i.name}</div>
-                  <div className="cardPrice">${i.price}</div> */}
           </div>
         </>
       )}

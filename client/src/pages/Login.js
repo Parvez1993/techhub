@@ -114,6 +114,7 @@ function Login() {
                             type="email"
                             id="form2Example17"
                             class="form-control form-control-lg"
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                           <label class="form-label" for="form2Example17">
                             Email address
@@ -125,6 +126,7 @@ function Login() {
                             type="password"
                             id="form2Example27"
                             class="form-control form-control-lg"
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                           <label class="form-label" for="form2Example27">
                             Password

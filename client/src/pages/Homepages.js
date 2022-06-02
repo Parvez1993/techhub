@@ -102,35 +102,48 @@ function Homepages() {
       <Image
         src="https://images.squarespace-cdn.com/content/v1/5936edf620099eda1a45cbdf/1496786888928-WR6B8L72LODW1WT217HA/Samsung+S8+Banner.jpg?format=2500w"
         alt="speaker"
-        className=" w-100 my-3"
+        className=" w-100 my-5"
       />
       <Container>
         <LatestPhones />
       </Container>
 
+      <Image
+        src="https://www.wafiapps.com/media/catalog/category/Headphones_banner.jpeg"
+        alt="speaker"
+        className=" w-100 my-3"
+      />
       <Container>
         <LatestHeadPhones />
       </Container>
-      <div className="text_deco">
-        <h2 data-text="Products">Products</h2>
+
+      <div style={{ background: "#fefefe" }}>
+        <Container>
+          <div className="text_deco">
+            <h2 data-text="Products">Products</h2>
+          </div>
+          <Row className="justify-content-between flex-wrap gap-x-2">
+            {products &&
+              products.slice(0, 3).map((item, k) => {
+                return (
+                  <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
+                    <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
+                  </Col>
+                );
+              })}
+            <div className="d-flex justify-content-center my-4">
+              <Link to="/products">
+                <Button
+                  size="lg"
+                  style={{ background: "#D51616", color: "#fff" }}
+                >
+                  View All Products
+                </Button>
+              </Link>
+            </div>
+          </Row>
+        </Container>
       </div>
-      <Row className="justify-content-between flex-wrap gap-x-2">
-        {products &&
-          products.slice(0, 3).map((item, k) => {
-            return (
-              <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
-                <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
-              </Col>
-            );
-          })}
-        <div className="d-flex justify-content-center my-4">
-          <Link to="/products">
-            <Button size="lg" style={{ background: "#D51616", color: "#fff" }}>
-              View All Products
-            </Button>
-          </Link>
-        </div>
-      </Row>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { listCategory } from "../redux/actions/categoryActions";
+import Loader from "./Loader";
 import "./styles/Categories.css";
 
 function Categories() {
@@ -17,7 +17,7 @@ function Categories() {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <>
           <div className="text_deco">

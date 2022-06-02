@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../components/Loader";
 import { detailCategory, editcategory } from "../redux/actions/categoryActions";
 
 function CategoryEdit() {
@@ -16,13 +18,9 @@ function CategoryEdit() {
   const dispatch = useDispatch();
   let categoryCreate = useSelector((state) => state.categoryDetail);
 
-  const { loading, error, category } = categoryCreate;
+  const { loading, category } = categoryCreate;
   const productUpdated = useSelector((state) => state.categoryUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdated;
+  const { success: successUpdate } = productUpdated;
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -42,6 +40,7 @@ function CategoryEdit() {
         setDescription(category.description);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, successUpdate, id, loading]);
 
   const uploadFileHandler = async (e) => {
@@ -125,7 +124,7 @@ function CategoryEdit() {
                     value={image?.image}
                     onChange={uploadFileHandler}
                   />{" "}
-                  {uploading && "loading"}
+                  {uploading && <Loader />}
                 </Form.Group>
                 <Button type="submit" variant="primary">
                   Update
