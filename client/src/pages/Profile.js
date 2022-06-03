@@ -72,10 +72,10 @@ function Profile() {
             <div>
               <h5>Email</h5>
             </div>
-            <div class="input-group input-group-sm mb-3">
+            <div className="input-group input-group-sm mb-3">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm"
                 disabled

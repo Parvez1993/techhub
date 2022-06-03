@@ -24,17 +24,17 @@ function Product({ product, tag, bg }) {
       ) : (
         <>
           {" "}
-          <div class="product-card">
-            <div class="badge">{tag}</div>
-            <div class="product-tumb" style={{ background: `${bg}` }}>
+          <div className="product-card">
+            <div className="badge">{tag}</div>
+            <div className="product-tumb" style={{ background: `${bg}` }}>
               <img src={image} alt="" />
             </div>
-            <div class="product-details">
-              {cat.map((i, k) =>
+            <div className="product-details">
+              {cat.map((i, id) =>
                 i._id === category ? (
-                  <span key={k} class="product-catagory">
-                    {i.name}
-                  </span>
+                  <div key={id}>
+                    <span className="product-catagory">{i.name}</span>
+                  </div>
                 ) : (
                   ""
                 )
@@ -44,12 +44,12 @@ function Product({ product, tag, bg }) {
                 <h4>{name} </h4>
               </Link>
 
-              <div class="product-bottom-details">
-                <div class="product-price">
+              <div className="product-bottom-details">
+                <div className="product-price">
                   <small>${price}</small>
                 </div>
               </div>
-              <div class="product-links">
+              <div className="product-links">
                 <Ratings ratings={rating} numberOfRatings={numReviews} />
               </div>
             </div>

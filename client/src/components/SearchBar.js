@@ -23,11 +23,11 @@ function SearchBar() {
     //     onChange={submitHandler}
     //   ></input>
     // </Form>
-    <div class="form-group has-search">
-      <span class="fa fa-search form-control-feedback"></span>
+    <div className="form-group has-search">
+      <span className="fa fa-search form-control-feedback"></span>
       <input
         type="text"
-        class="form-control"
+        className="form-control"
         placeholder="Search"
         onChange={submitHandler}
       />

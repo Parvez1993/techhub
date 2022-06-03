@@ -26,15 +26,18 @@ function Categories() {
           <div className="category_card d-flex justify-content-center flex-wrap gap-2">
             {category.map((i, k) => {
               return (
-                <Link
-                  to={`/products/page/1/sort/latest/category/${i.name}/min/0/max/0`}
-                >
-                  <div className="img_box">
-                    <img src={i.image} alt={i.name} className="cat__img" />
-                    <div className="name">{i.name}</div>
-                    <div className="description">{i.description}</div>
-                  </div>
-                </Link>
+                <div key={k}>
+                  {" "}
+                  <Link
+                    to={`/products/page/1/sort/latest/category/${i.name}/min/0/max/0`}
+                  >
+                    <div className="img_box">
+                      <img src={i.image} alt={i.name} className="cat__img" />
+                      <div className="name">{i.name}</div>
+                      <div className="description">{i.description}</div>
+                    </div>
+                  </Link>
+                </div>
               );
             })}
           </div>

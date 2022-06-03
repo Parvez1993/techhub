@@ -119,7 +119,7 @@ function ProductPage() {
 
             <div>
               <select
-                class="custom-select custom-select-lg py-2 sort"
+                className="custom-select custom-select-lg py-2 sort"
                 onChange={(e) => {
                   navigate(getFilterUrl({ sort: e.target.value }));
                 }}

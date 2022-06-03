@@ -62,9 +62,9 @@ function Homepages() {
     <>
       {landing.length > 1 && products ? (
         <Carousel fade activeIndex={index} onSelect={handleSelect}>
-          {landing.map((item, key) => {
+          {landing.map((item, keys) => {
             return (
-              <Carousel.Item>
+              <Carousel.Item key={keys}>
                 <img
                   className="d-block w-100 fluid"
                   style={{ height: "500px", width: "auto", objectFit: "cover" }}
@@ -124,13 +124,11 @@ function Homepages() {
           </div>
           <Row className="justify-content-between flex-wrap gap-x-2">
             {products &&
-              products.slice(0, 3).map((item, k) => {
-                return (
-                  <Col key={k} className="my-1" sm={12} md={6} lg={4} xl={3}>
-                    <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
-                  </Col>
-                );
-              })}
+              products.slice(0, 3).map((item, k) => (
+                <Col className="my-1" key={k} sm={12} md={6} lg={4} xl={3}>
+                  <Product product={item} tag="Sneak Peak" bg="#d6fff7" />
+                </Col>
+              ))}
             <div className="d-flex justify-content-center my-4">
               <Link to="/products">
                 <Button

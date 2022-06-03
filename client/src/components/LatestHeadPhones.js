@@ -26,7 +26,9 @@ function LatestHeadPhones() {
           </div>
           <div className="d-flex justify-content-between flex-wrap gap-2">
             {headphones.map((i, k) => {
-              return <Product product={i} tag="Bass Xtreme" bg="#e3e4fa" />;
+              return (
+                <Product product={i} key={k} tag="Bass Xtreme" bg="#e3e4fa" />
+              );
             })}
           </div>
         </>

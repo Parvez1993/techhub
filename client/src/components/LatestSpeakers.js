@@ -26,7 +26,9 @@ function LatestSpeakers() {
           </div>
           <div className="d-flex justify-content-between flex-wrap gap-2">
             {speakers.map((i, k) => {
-              return <Product product={i} tag="Small Boombox" bg="#f5f9ff" />;
+              return (
+                <Product key={k} product={i} tag="Small Boombox" bg="#f5f9ff" />
+              );
             })}
           </div>
         </>

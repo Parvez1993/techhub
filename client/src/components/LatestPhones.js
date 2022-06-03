@@ -29,7 +29,12 @@ function LatestPhones() {
               <div className="d-flex justify-content-between flex-wrap gap-2">
                 {phones.map((i, k) => {
                   return (
-                    <Product product={i} tag="Limited Editions" bg="#ffe3e8" />
+                    <Product
+                      key={k}
+                      product={i}
+                      tag="Limited Editions"
+                      bg="#ffe3e8"
+                    />
                   );
                 })}
               </div>

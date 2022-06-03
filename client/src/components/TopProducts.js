@@ -36,15 +36,15 @@ function TopProducts() {
               modules={[Navigation]}
               className="mySwiper"
             >
-              {topProducts.map((item, key) => {
+              {topProducts.map((item, id) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={id}>
                     <div className="d-flex align-items-center justify-content-center box gap-3">
                       <div>
                         <img
                           src={item.image}
                           alt={item.name}
-                          class="swipe_img"
+                          className="swipe_img"
                         />
                       </div>
                       <div className="mx-4 text_box">
