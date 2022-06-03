@@ -20,20 +20,12 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
-
 // ------------------mongodb--------------------
 
 const DB = process.env.DB;
 
 mongoose.connect(DB, () => {
   console.log("connected");
-});
-
-app.get("/", (req, res) => {
-  res.send("api is running");
 });
 
 app.use("/api/auth", router);
@@ -60,12 +52,27 @@ app.get("/api/config/paypal", (req, res) => {
 //landing
 app.use("/api/landing", landingRouter);
 //mimic it since dirnmae doesnt work in es module
+
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(
   "/uploads/category",
   express.static(path.join(__dirname, "/uploads/category"))
 );
+
+//productions
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
