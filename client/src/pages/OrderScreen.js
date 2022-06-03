@@ -18,7 +18,6 @@ import {
   getOrderDetails,
   payOrder,
 } from "../redux/actions/orderActions";
-import { PayPalButton } from "react-paypal-button-v2";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import {
   ORDER_PAY_RESET,
@@ -278,10 +277,6 @@ function OrderScreen() {
                         {!sdkReady ? (
                           <Loader />
                         ) : (
-                          // <PayPalButton
-                          //   amount={order.totalPrice}
-                          //   onSuccess={successPaymentHandler}
-                          // />
                           <PayPalButtons
                             createOrder={createOrder}
                             onApprove={successPaymentHandler}
