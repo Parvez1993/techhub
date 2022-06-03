@@ -31,7 +31,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
 export const updateUserDetails =
   (id, token, name, password) => async (dispatch, getState) => {
-    console.log("bal", id, token, name, password);
     try {
       dispatch({ type: UPDATEUSER_DETAIL_BEGIN });
       const { data } = await axios.put(
