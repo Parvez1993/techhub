@@ -19,6 +19,7 @@ import {
   payOrder,
 } from "../redux/actions/orderActions";
 import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVERY_RESET,
@@ -30,8 +31,6 @@ function OrderScreen() {
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
-
-  console.log(order);
 
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -45,12 +44,46 @@ function OrderScreen() {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
 
+  // paypal step 1
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+  console.log(isPending);
+
+  //paypal step2
+  const loadPayPalScript = async () => {
+    const { data } = await axios.get("/api/config/paypal");
+
+    paypalDispatch({
+      type: "resetOptions",
+      value: {
+        "client-id": data,
+        currency: "USD",
+      },
+    });
+    paypalDispatch({
+      type: "setLoadingStatus",
+      value: "pending",
+    });
+  };
+
   const addPayPalScript = async () => {
-    const { data: clientId } = await axios.get("/api/config/paypal");
+    const { data } = await axios.get("/api/config/paypal");
+
+    paypalDispatch({
+      type: "resetOptions",
+      value: {
+        "client-id": data,
+        currency: "USD",
+      },
+    });
+    paypalDispatch({
+      type: "setLoadingStatus",
+      value: "pending",
+    });
 
     const script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
     script.async = true;
     script.onload = () => {
       setSdkReady(true);
@@ -91,8 +124,29 @@ function OrderScreen() {
     );
   }
 
+  const createOrder = (data, actions) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: {
+              value: order.totalPrice,
+              currency_code: "USD",
+            },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  };
+
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const onError = (err) => {
+    return Window.Alert(err);
   };
 
   return (
@@ -113,7 +167,7 @@ function OrderScreen() {
                 {" "}
                 <ListGroup>
                   <ListGroup.Item>
-                    <h2>Shipping</h2>
+                    <h3>Shipping</h3>
                     <p>
                       {" "}
                       <strong>Name: </strong>
@@ -133,7 +187,7 @@ function OrderScreen() {
                     </p>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <h2>Payment Method</h2>
+                    <h3>Payment Method</h3>
                     <p className="my-2">
                       <strong>Method: </strong>
                     </p>
@@ -146,7 +200,7 @@ function OrderScreen() {
                   </ListGroup.Item>
                 </ListGroup>
                 <ListGroup.Item>
-                  <h2>Order Items</h2>
+                  <h3>Order Items</h3>
                   {order.orderItems.length === 0 ? (
                     <Alert variant="danger">Your cart is empty</Alert>
                   ) : (
@@ -192,7 +246,7 @@ function OrderScreen() {
                 <Card>
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <h2>Order Summary</h2>
+                      <h3>Order Summary</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <Row>
@@ -224,9 +278,14 @@ function OrderScreen() {
                         {!sdkReady ? (
                           <Loader />
                         ) : (
-                          <PayPalButton
-                            amount={order.totalPrice}
-                            onSuccess={successPaymentHandler}
+                          // <PayPalButton
+                          //   amount={order.totalPrice}
+                          //   onSuccess={successPaymentHandler}
+                          // />
+                          <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={successPaymentHandler}
+                            onError={onError}
                           />
                         )}
                       </ListGroup.Item>

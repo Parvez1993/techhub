@@ -48,8 +48,6 @@ export const addcategory = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
-    console.log(userInfo);
-
     const { data } = await axios.post(
       `/api/category`,
       {},

@@ -63,7 +63,7 @@ function PlaceOrder() {
   const { order, success, error } = orderCreate;
 
   return (
-    <Container>
+    <Container style={{ minHeight: "61vh" }}>
       <div className="my-5">
         <CheckoutSteps step1 step2 step3 step4 />
       </div>
@@ -72,7 +72,7 @@ function PlaceOrder() {
         <Col md={6}>
           <ListGroup>
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h3>Shipping</h3>
               <p>
                 <strong>Address: </strong>
                 {cart.shipping.address}, {cart.shipping.city}{" "}
@@ -80,14 +80,14 @@ function PlaceOrder() {
               </p>
             </ListGroup.Item>
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h3>Payment Method</h3>
               <strong>Method: </strong>
               {cart.paymentMethod.paymentMethod}
             </ListGroup.Item>
           </ListGroup>
 
           <ListGroup.Item>
-            <h2>Order Items</h2>
+            <h3>Order Items</h3>
             {cart.cartItems.length === 0 ? (
               <Alert variant="danger">Your cart is empty</Alert>
             ) : (
@@ -117,7 +117,7 @@ function PlaceOrder() {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h3>Order Summary</h3>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>

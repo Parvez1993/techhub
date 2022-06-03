@@ -25,7 +25,6 @@ import {
 import { logout } from "./userActions";
 
 export const createOrder = (order) => async (dispatch, getState) => {
-  console.log("i am from create Order");
   const {
     userLogin: { userInfo },
   } = getState();
@@ -113,8 +112,6 @@ export const payOrder =
           },
         }
       );
-
-      console.log("wtf2", data);
 
       dispatch({
         type: ORDER_PAY_SUCCESS,

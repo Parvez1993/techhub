@@ -21,8 +21,6 @@ function UserList() {
 
   const [reload, setReload] = useState(false);
 
-  console.log(reload);
-
   useEffect(() => {
     if (userInfo.user && userInfo.user.isAdmin) {
       dispatch(getUsers());
