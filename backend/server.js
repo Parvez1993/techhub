@@ -28,14 +28,6 @@ mongoose.connect(DB, () => {
   console.log("connected");
 });
 
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
-
 app.use("/api/auth", router);
 app.use("/api/products", productRouter);
 app.use("/api/orders", auth, orderRouter);
