@@ -1,9 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "ecommerce",
   "main": "server.js",
   "type": "module",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": " node backend/server",
     "server": "cross-env NODE_ENV=development PORT=4000 nodemon backend/server",
