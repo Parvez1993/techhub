@@ -1,8 +1,8 @@
 {
+   
   "name": "techhub",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
   "dependencies": {
     "@paypal/react-paypal-js": "^7.6.0",
     "@testing-library/jest-dom": "^5.16.4",
@@ -52,3 +52,5 @@
     ]
   }
 }
+
+
