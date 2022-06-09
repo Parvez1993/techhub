@@ -70,7 +70,7 @@ export const addcategory = () => async (dispatch, getState) => {
 export const listCategory = () => async (dispatch, getState) => {
   try {
     dispatch({ type: CATEGORY_LIST_BEGIN });
-    const { data } = await axios.get(`http://localhost:4000/api/category/get`);
+    const { data } = await axios.get(`/api/category/get`);
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,
