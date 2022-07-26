@@ -2,12 +2,14 @@
 
 
 Homepage Sneak Peak
+
 <img src="https://user-images.githubusercontent.com/28535765/180946882-c905114e-4386-4d7a-bdce-6af3e3d12c28.png" height="1000"> 
 
 
 
 
 Admin Panel Sneak Peak
+
 <img src="https://user-images.githubusercontent.com/28535765/180951271-a8c513b0-2779-485c-92f8-ea7356848828.png" height="500">
 
 
